@@ -1,3 +1,4 @@
+import confetti from "canvas-confetti";
 import { useState } from "react";
 import pdfToText from "react-pdftotext";
 
@@ -40,10 +41,15 @@ function App() {
     }
   };
   const fn = () => {
+    console.log(myText1, myText2);
+
     const match = myText1.filter((num) => myText2.includes(num));
-    setMyTexts1();
-    setMyTexts2();
+    console.log(match);
+
     setMatch(match);
+    if (match.length > 0) {
+      confetti();
+    }
   };
 
   return (
