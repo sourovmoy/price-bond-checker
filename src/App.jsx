@@ -48,6 +48,9 @@ function App() {
 
   return (
     <div className=" container mx-auto px-10 mt-20">
+      <h1 className="text-3xl font-semibold mb-10 text-center">
+        Price bond winning checker
+      </h1>
       <div className="flex justify-between">
         <div>
           <p className="mb-5 text-xl font-medium">Your pdf file</p>
