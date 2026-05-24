@@ -11,7 +11,7 @@ const Navbar = () => {
   }, []);
   return (
     <div
-      className={`fixed inset-x-0 top-0 md:top-0 md:bottom-auto z-50 transition-all duration-300 ease-in-out ${
+      className={`fixed inset-x-0 top-0 md:top-0 md:bottom-auto z-50 transition-all duration-300 ease-in-out py-1 ${
         scrolled
           ? "bg-white/60 backdrop-blur-sm shadow-md"
           : "bg-white/30 backdrop-blur-none shadow-sm"

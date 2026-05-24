@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
+import Banner from "../Components/Home/Banner";
 import { AuthContext } from "../Provider/AuthContext";
 
 const Home = () => {
-  const user = useContext(AuthContext);
-  console.log(user);
+  // const user = useContext(AuthContext);
 
-  return <div className="text-xl">this is home</div>;
+  return (
+    <div className="">
+      <Banner />
+    </div>
+  );
 };
 
 export default Home;
