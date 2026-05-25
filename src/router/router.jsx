@@ -3,6 +3,8 @@ import MainLayout from "../Layout/MainLayout";
 import AddPriceBond from "../Pages/AddPriceBond";
 import ErrorPage from "../Pages/ErrorPage";
 import Home from "../Pages/Home";
+import LoginPage from "../Pages/LoginPage";
+import RegisterPage from "../Pages/RegisterPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -16,6 +18,14 @@ export const router = createBrowserRouter([
       {
         path: "/add-price-bond",
         element: <AddPriceBond />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/register",
+        element: <RegisterPage />,
       },
     ],
   },
