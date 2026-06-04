@@ -16,26 +16,20 @@ const RegisterPage = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    if (selectedPhoto) {
-      formData.append("photo", selectedPhoto);
-    }
-    console.log("Submitting:", Object.fromEntries(formData));
-  };
+    const { name, password, email, file } = data;
 
-  const handlePhotoChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setSelectedPhoto(event.target.files[0]);
-    }
+    const newUser = {
+      name,
+      password,
+      email,
+      image: file?.[0],
+    };
+
+    console.log(newUser);
   };
 
   return (
@@ -137,9 +131,16 @@ const RegisterPage = () => {
                   id="photo"
                   className="block w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-1 focus:ring-green-500"
                   accept="image/*"
-                  onChange={handlePhotoChange}
+                  {...register("file", {
+                    required: "Picture is required",
+                  })}
                 />
-                <PhotoPreview file={selectedPhoto} />
+                {errors.file && (
+                  <p className="text-red-500 text-xs sm:text-sm mt-2 flex items-center">
+                    <span className="mr-1">⚠️</span>
+                    {errors.file.message}
+                  </p>
+                )}
               </div>
 
               <div>
