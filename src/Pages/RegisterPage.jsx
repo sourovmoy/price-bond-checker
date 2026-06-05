@@ -1,47 +1,54 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Container from "../Components/Shared/Container/Container";
-
-// Minimal visual representation based on image structure
-const PhotoPreview = ({ file }) => {
-  if (!file) return null;
-  return (
-    <div className="mt-2 text-center text-xs text-gray-500">
-      File: {file.name} (Preview in development)
-    </div>
-  );
-};
+import useAxios from "../Hooks/useAxios";
+import useAuth from "../Hooks/useAuth";
+import { AiOutlineLoading } from "react-icons/ai";
 
 const RegisterPage = () => {
+  const { createUser } = useAuth();
+  const axios = useAxios();
+  const [spinner, setSpinner] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const onSubmit = async (data) => {
+    setSpinner(true);
 
-  const onSubmit = (data) => {
-    const { name, password, email, file } = data;
+    try {
+      const { name, email, password, phone } = data;
 
-    const newUser = {
-      name,
-      password,
-      email,
-      image: file?.[0],
-    };
+      // 1. Firebase auth
+      await createUser(email, password);
 
-    console.log(newUser);
+      const newUser = {
+        name,
+        email,
+        phone,
+      };
+
+      const response = await axios.post("/user", newUser);
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Registration error:", error);
+    } finally {
+      setSpinner(false);
+    }
   };
 
   return (
     <Container>
       <div className="flex flex-col items-center justify-center hover:pointer-coarse">
-        <div className="flex mt-2 md:mt-4">
+        <div className="flex mt-1">
           <div className="w-full max-w-md p-8 border border-gray-100 rounded-lg shadow-md">
-            <h2 className="mb-6 text-3xl font-semibold text-gray-900">
+            <h2 className="mb-5 text-3xl font-semibold text-gray-900">
               Create a new account
             </h2>
 
-            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+            <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label
                   htmlFor="name"
@@ -89,6 +96,29 @@ const RegisterPage = () => {
                   </p>
                 )}
               </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  className="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
+                  placeholder="017XXXXXXXX"
+                  {...register("phone", {
+                    minLength: 11,
+                    required: "Phone Number is required",
+                  })}
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-xs sm:text-sm mt-2 flex items-center">
+                    <span className="mr-1">⚠️</span>
+                    {errors.phone.message}
+                  </p>
+                )}
+              </div>
 
               <div>
                 <div className="flex items-center justify-between">
@@ -131,9 +161,7 @@ const RegisterPage = () => {
                   id="photo"
                   className="block w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-1 focus:ring-green-500"
                   accept="image/*"
-                  {...register("file", {
-                    required: "Picture is required",
-                  })}
+                  {...register("file")}
                 />
                 {errors.file && (
                   <p className="text-red-500 text-xs sm:text-sm mt-2 flex items-center">
@@ -148,7 +176,16 @@ const RegisterPage = () => {
                   className="btn w-full bg-green-300 hover:bg-green-400"
                   type="submit"
                 >
-                  Register
+                  {spinner ? (
+                    <p className="flex items-center gap-3">
+                      Creating{" "}
+                      <span className="animate-spin">
+                        <AiOutlineLoading />
+                      </span>
+                    </p>
+                  ) : (
+                    "Register"
+                  )}
                 </button>
               </div>
             </form>
