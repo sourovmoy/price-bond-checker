@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import LeftNavbar from "./LeftNavbar";
 import Logo from "../Shared/Logo/Logo";
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { user } = useAuth();
+  console.log(user);
+
   useEffect(() => {
     const handelScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handelScroll);
@@ -26,7 +30,7 @@ const Navbar = () => {
           </div>
           {/* right-navbar  */}
           <div className=" flex justify-center items-center gap-3">
-            <h1>right</h1>
+            <h1>{user?.displayName}</h1>
           </div>
         </div>
       </div>
