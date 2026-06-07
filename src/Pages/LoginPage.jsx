@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Container from "../Components/Shared/Container/Container";
 import useAuth from "../Hooks/useAuth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Loading from "../Components/Loading/Loading";
 
 const LoginPage = () => {
@@ -89,10 +89,7 @@ const LoginPage = () => {
                 />
               </div>
               <div>
-                <button
-                  className="btn w-full bg-green-300 hover:bg-green-400"
-                  type="submit"
-                >
+                <button className="btn w-full" type="submit">
                   Sign In
                 </button>
               </div>
@@ -102,9 +99,12 @@ const LoginPage = () => {
               <span className="text-sm text-gray-600">
                 Don't have an account?{" "}
               </span>
-              <button className="text-sm font-medium text-green-600 hover:text-green-500">
+              <Link
+                to={"/register"}
+                className="text-sm font-medium text-green-600 hover:text-green-500"
+              >
                 Register now
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -12,6 +12,7 @@
   "dependencies": {
     "@cloudinary/react": "^1.14.4",
     "@cloudinary/url-gen": "^1.22.0",
+    "@headlessui/react": "^2.2.10",
     "@tailwindcss/vite": "^4.1.18",
     "axios": "^1.17.0",
     "canvas-confetti": "^1.9.4",

@@ -4,3 +4,7 @@
 .active {
   @apply underline;
 }
+
+.btn {
+  @apply bg-green-500 hover:bg-green-700 text-white font-medium py-2 rounded-md transition duration-200;
+}
