@@ -15,9 +15,10 @@ import {
   EmailAuthProvider,
   linkWithCredential,
 } from "firebase/auth";
+import Loading from "../Components/Loading/Loading";
 
 const RegisterPage = () => {
-  const { updateUserProfile, sendOtpToPhone } = useAuth();
+  const { updateUserProfile, sendOtpToPhone, loading } = useAuth();
   const axios = useAxios();
   const [spinner, setSpinner] = useState(false);
   const { uploadImage } = useImageUpload();
@@ -185,6 +186,7 @@ const RegisterPage = () => {
       setSpinner(false);
     }
   };
+  if (loading || spinner) <Loading />;
 
   return (
     <Container>
@@ -193,7 +195,7 @@ const RegisterPage = () => {
         <div ref={recaptchaElementRef}></div>
       </div>
 
-      <div className="flex flex-col items-center justify-center py-1">
+      <div className="flex flex-col items-center justify-center py-1 cursor-pointer">
         <div className="w-full max-w-md p-5 border border-gray-100 rounded-lg shadow-md bg-white">
           {!confirmationResult ? (
             <>

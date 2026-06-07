@@ -1,17 +1,27 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Container from "../Components/Shared/Container/Container";
+import useAuth from "../Hooks/useAuth";
+import { useNavigate } from "react-router";
+import Loading from "../Components/Loading/Loading";
 
 const LoginPage = () => {
+  const { signIn, loading } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    const res = await signIn(email, password);
+    if (res.user) {
+      navigate("/");
+    }
   };
+  if (loading) <Loading />;
 
   return (
     <Container>

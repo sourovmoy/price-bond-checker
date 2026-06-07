@@ -6,7 +6,8 @@ import {
   onAuthStateChanged,
   signOut,
   updateProfile,
-  signInWithPhoneNumber, // 🟢 ADDED: ফোন প্রোভাইডার ইম্পোর্ট
+  signInWithPhoneNumber,
+  signInWithEmailAndPassword, // 🟢 ADDED: ফোন প্রোভাইডার ইম্পোর্ট
 } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 
@@ -28,6 +29,16 @@ const AuthProvider = ({ children }) => {
     } catch (err) {
       setLoading(false);
       throw err;
+    }
+  };
+  const signIn = async (email, password) => {
+    setLoading(true);
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      return result;
+    } catch (error) {
+      setLoading(false);
+      throw error;
     }
   };
 
@@ -100,7 +111,8 @@ const AuthProvider = ({ children }) => {
       createUser,
       logout,
       updateUserProfile,
-      sendOtpToPhone, // 🟢 ADDED: কন্টেক্সটে ফাংশনটি পাস করা হয়েছে
+      sendOtpToPhone,
+      signIn, // 🟢 ADDED: কন্টেক্সটে ফাংশনটি পাস করা হয়েছে
     }),
     [user, loading],
   );

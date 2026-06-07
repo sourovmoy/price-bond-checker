@@ -1,5 +1,6 @@
 // import React, { useContext } from "react";
 import Banner from "../Components/Home/Banner";
+import Loading from "../Components/Loading/Loading";
 import { AuthContext } from "../Provider/AuthContext";
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
   return (
     <div className="">
       <Banner />
+      <Loading />
     </div>
   );
 };
