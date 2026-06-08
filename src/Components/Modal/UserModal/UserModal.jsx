@@ -1,43 +1,43 @@
-import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import React, { useRef, useEffect } from "react";
+import { HiOutlineMail, HiOutlinePhone, HiOutlineLogout } from "react-icons/hi";
+import useAuth from "../../../Hooks/useAuth";
 
 export default function UserModal({ setIsOpen, isOpen }) {
+  const { user, logout } = useAuth(); // 🟢 সরাসরি গ্লোবাল স্টেট থেকে ডাটা এবং মেথড রিসিভ
+  const dropdownRef = useRef(null);
+
+  // বাইরে ক্লিক করলে ড্রপডাউন বন্ধ করার চমৎকার লজিক
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [setIsOpen]);
+
+  if (!isOpen) return null;
+  const { displayName, email } = user || {};
   return (
-    <Dialog
-      open={isOpen}
-      as="div"
-      className="relative z-50 focus:outline-none"
-      onClose={() => setIsOpen(false)} // 🟢 ফিক্সড: বাইরে ক্লিক করলে বা এসকেপ (Esc) চাপলে মোডাল অফ হবে
+    <div
+      ref={dropdownRef}
+      className="absolute right-0 mt-5 w-80 rounded-2xl border border-gray-100 bg-white shadow-2xl z-50 p-5 animate-in fade-in zoom-in-95 duration-200"
     >
-      {/* ব্যাকড্রপ ওভারলে (মোডালের পেছনের অংশ আবছা কালো করার জন্য) */}
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm md:backdrop-blur-none transition-opacity" />
+      {/* 🟢 আপনার সেই চমৎকার প্রফেশনাল ইউজার ইনফো ও ইমেইল ডিজাইনের কোড... */}
+      <h3 className="font-bold text-gray-800">{displayName}</h3>
+      <p className="text-sm text-gray-500">{email}</p>
 
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex min-h-full items-center justify-center p-4">
-          <DialogPanel
-            transition
-            className="w-full max-w-md rounded-xl bg-white p-6 shadow-2xl duration-300 ease-out data-[closed]:transform data-[closed]:scale-95 data-[closed]:opacity-0"
-          >
-            {/* 🟢 নোট: bg-white/5 সল্ট টেক্সটকে রিড করা কঠিন করছিল, তাই সলিড bg-white ও ডার্ক টেক্সট দেওয়া হলো */}
-            <DialogTitle as="h3" className="text-lg font-medium text-gray-900">
-              User Profile Settings
-            </DialogTitle>
-
-            <p className="mt-2 text-sm text-gray-500">
-              Your payment has been successfully submitted. We’ve sent you an
-              email with all of the details of your order.
-            </p>
-
-            <div className="mt-4">
-              <Button
-                className="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus:outline-none"
-                onClick={() => setIsOpen(false)} // 🟢 ফিক্সড: বাটনে ক্লিক করলে ফলস হবে
-              >
-                Got it, thanks!
-              </Button>
-            </div>
-          </DialogPanel>
-        </div>
-      </div>
-    </Dialog>
+      {/* 🔴 লগআউট বাটন */}
+      <button
+        onClick={async () => {
+          setIsOpen(false);
+          await logout(); // 🟢 সরাসরি গ্লোবাল মেথড রান হবে
+        }}
+        className="mt-4 w-full flex items-center justify-center gap-2 btn"
+      >
+        <HiOutlineLogout /> Log Out
+      </button>
+    </div>
   );
 }

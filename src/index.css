@@ -2,9 +2,12 @@
 @plugin "daisyui";
 
 .active {
-  @apply underline;
+  @apply bg-gray-200 p-2 md:p-1 rounded-lg;
 }
 
 .btn {
   @apply bg-green-500 hover:bg-green-700 text-white font-medium py-2 rounded-md transition duration-200;
+}
+html {
+  scrollbar-gutter: stable;
 }
