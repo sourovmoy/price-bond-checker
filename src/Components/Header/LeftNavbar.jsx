@@ -1,6 +1,5 @@
 import React from "react";
-import NavLinks from "../Shared/NavLinks/Navlinks";
-
+import NavLinks from "./NavLinks/NavLinks";
 
 const LeftNavbar = () => {
   return (

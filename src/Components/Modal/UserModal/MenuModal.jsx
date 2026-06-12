@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import NavLinks from "../../Shared/NavLinks/Navlinks";
+import NavLinks from "../../Header/NavLinks/NavLinks";
 
 const MenuModal = ({ setIsMenuModalOpen, isMenuModalOpen }) => {
   const dropdownRef = useRef(null);
