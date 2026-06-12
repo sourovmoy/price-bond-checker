@@ -24,12 +24,10 @@ const RegisterPage = () => {
   const { uploadImage } = useImageUpload();
   const navigate = useNavigate();
 
-  // ওটিপি ও ফর্ম ডাটা ট্র্যাক করার স্টেটসমূহ
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [otpCode, setOtpCode] = useState("");
   const [savedFormData, setSavedFormData] = useState(null);
 
-  // 🟢 BEST PRACTICE: window অবজেক্টের বদলে useRef দিয়ে রিক্যাপচা ট্র্যাক করা
   const recaptchaVerifierRef = useRef(null);
   const recaptchaElementRef = useRef(null);
 
@@ -37,9 +35,10 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
-  // 🟢 BEST PRACTICE: মেমোরি লিক রোধে কম্পোনেন্ট আনমাউন্ট হলে রিক্যাপচা ক্লিয়ার করা
   useEffect(() => {
     return () => {
       if (recaptchaVerifierRef.current) {
@@ -49,7 +48,6 @@ const RegisterPage = () => {
     };
   }, []);
 
-  // 🔴 reCAPTCHA সেটিংস জেনারেটর
   const setupRecaptcha = () => {
     const authInstance = getAuth();
 
@@ -58,7 +56,6 @@ const RegisterPage = () => {
       recaptchaVerifierRef.current = null;
     }
 
-    // useRef-এর কারেন্ট এলিমেন্টকে ফায়ারবেসে পাস করা হলো
     recaptchaVerifierRef.current = new RecaptchaVerifier(
       authInstance,
       recaptchaElementRef.current,
@@ -68,7 +65,7 @@ const RegisterPage = () => {
           console.log("reCAPTCHA verified efficiently.");
         },
         "expired-callback": () => {
-          toast.error("reCAPTCHA expired. Please try again.");
+          toast.error("reCAPTCHA-এর মেয়াদ শেষ। দয়া করে আবার চেষ্টা করুন।");
           if (recaptchaVerifierRef.current)
             recaptchaVerifierRef.current.clear();
         },
@@ -76,13 +73,9 @@ const RegisterPage = () => {
     );
   };
 
-  // ==========================================
-  // ১ম этап: ফর্ম ডাটা ভ্যালিডেশন এবং ওটিপি পাঠানো
-  // ==========================================
   const onSubmit = async (data) => {
     setSpinner(true);
     try {
-      // ডম ক্লিয়ারিং রিঅ্যাক্ট উপায়ে (useRef এর মাধ্যমে)
       if (recaptchaElementRef.current) {
         recaptchaElementRef.current.innerHTML = "";
       }
@@ -94,16 +87,16 @@ const RegisterPage = () => {
       setupRecaptcha();
       const appVerifier = recaptchaVerifierRef.current;
 
-      // ওটিপি রিকোয়েস্ট পাঠানো
       const confResult = await sendOtpToPhone(formattedPhone, appVerifier);
 
       setConfirmationResult(confResult);
       setSavedFormData({ ...data, formattedPhone });
 
-      toast.success("OTP verification code sent to your phone!");
+      toast.success("আপনার নাম্বারে ওটিপি (OTP) কোড পাঠানো হয়েছে!");
     } catch (error) {
-      console.error("❌ OTP Sending Error:", error);
-      toast.error(getFirebaseErrorMessage(error) || "Failed to send OTP");
+      toast.error(
+        getFirebaseErrorMessage(error) || "ওটিপি পাঠাতে ব্যর্থ হয়েছে",
+      );
       if (recaptchaVerifierRef.current) {
         recaptchaVerifierRef.current.clear();
         recaptchaVerifierRef.current = null;
@@ -113,23 +106,18 @@ const RegisterPage = () => {
     }
   };
 
-  // ==========================================
-  // ২য় этап: ওটিপি ভেরিফিকেশন এবং অ্যাকাউন্ট লিঙ্কিং
-  // ==========================================
   const handleVerifyAndRegister = async () => {
     if (!otpCode || otpCode.length < 6) {
-      return toast.error("Please enter a valid 6-digit OTP code");
+      return toast.error("দয়া করে ৬ ডিজিটের সঠিক ওটিপি কোডটি লিখুন");
     }
 
     setSpinner(true);
     try {
       const { name, email, password, formattedPhone } = savedFormData;
 
-      // ১. ওটিপি কনফার্মেশন
       const userCredential = await confirmationResult.confirm(otpCode);
       const firebaseUser = userCredential.user;
 
-      // 🟢 BEST PRACTICE: ডম স্টেট ডিলিট হওয়ার ঠিক আগেই সেফলি রিক্যাপচা অবজেক্ট ডেস্ট্রয় করা
       if (recaptchaVerifierRef.current) {
         try {
           recaptchaVerifierRef.current.clear();
@@ -139,17 +127,17 @@ const RegisterPage = () => {
         }
       }
 
-      // ২. ইমেইল ও পাসওয়ার্ড সফল লিঙ্কিং
       try {
         const credential = EmailAuthProvider.credential(email, password);
         await linkWithCredential(firebaseUser, credential);
       } catch (linkError) {
         if (linkError.code === "auth/email-already-in-use") {
-          throw new Error("This email is already linked to another account.");
+          throw new Error(
+            "এই ইমেইলটি দিয়ে অলরেডি অন্য একটি অ্যাকাউন্ট যুক্ত রয়েছে।",
+          );
         }
       }
 
-      // ৩. ছবি ক্লাউডিনারিতে আপলোড করা
       let uploadedImageUrl = "";
       const file = savedFormData?.file?.[0];
       if (file) {
@@ -161,7 +149,6 @@ const RegisterPage = () => {
         }
       }
 
-      // ৪. প্রোফাইল ও ডাটাবেজ আপডেট
       await updateUserProfile(name, uploadedImageUrl);
 
       const newUser = {
@@ -173,50 +160,55 @@ const RegisterPage = () => {
 
       await axios.post("/user", newUser);
 
-      toast.success("Account Successfully Created & Verified!");
+      toast.success("সফলভাবে অ্যাকাউন্ট তৈরি ও ভেরিফিকেশন সম্পন্ন হয়েছে!");
       navigate("/");
     } catch (error) {
       console.error("❌ Verification/Registration Error:", error);
       toast.error(
         getFirebaseErrorMessage(error) ||
           error.message ||
-          "Registration Failed",
+          "নিবন্ধন ব্যর্থ হয়েছে",
       );
     } finally {
       setSpinner(false);
     }
   };
-  if (loading || spinner) <Loading />;
+
+  if (loading || spinner) return <Loading />;
 
   return (
     <Container>
-      {/* 🟢 BEST PRACTICE: রিক্যাপচাকে কন্ডিশনাল রেন্ডারিং এর বাইরে সম্পূর্ণ স্বাধীন রাখা হয়েছে */}
       <div id="recaptcha-container" className="hidden">
         <div ref={recaptchaElementRef}></div>
       </div>
 
-      <div className="flex flex-col items-center justify-center py-1 cursor-pointer">
-        <div className="w-full max-w-md p-5 border border-gray-100 rounded-lg shadow-md bg-white">
+      {/* 🚀 py-2 এবং h-[calc(100vh-80px)] দিয়ে ফুল স্ক্রিন ফিট নিশ্চিত করা হয়েছে (প্রয়োজনে হেডার সাইজ অনুযায়ী ৮০ পিক্সেল পরিবর্তন করতে পারেন) */}
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-90px)] py-2 px-1 md:px-4 overflow-hidden animate-fadeIn">
+        <div className="w-full max-w-md p-5 border border-gray-100 rounded-2xl shadow-xl bg-white">
           {!confirmationResult ? (
             <>
-              <h2 className="mb-3 text-3xl font-semibold text-gray-900">
-                Create a new account
+              {/* mb-2 দিয়ে হেডিং এর নিচের স্পেস কমানো হয়েছে */}
+              <h2 className="mb-2 text-xl sm:text-2xl font-extrabold text-gray-800 tracking-tight text-center">
+                নতুন অ্যাকাউন্ট তৈরি করুন
               </h2>
 
-              <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
+              {/* space-y-2.5 দিয়ে প্রতিটা ইনপুটের মাঝের ফাঁকা অংশ কম করা হয়েছে */}
+              <form className="space-y-2.5" onSubmit={handleSubmit(onSubmit)}>
                 {/* Full Name */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Full Name
+                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-700 mb-0.5">
+                    আপনার সম্পূর্ণ নাম
                   </label>
                   <input
                     type="text"
-                    className="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
-                    placeholder="John Doe"
-                    {...register("name", { required: "Name is required" })}
+                    className="block w-full px-3.5 py-1.5 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
+                    placeholder="যেমন: সৌভভ দাশ"
+                    {...register("name", {
+                      required: "আপনার নামটি দেওয়া বাধ্যতামূলক",
+                    })}
                   />
                   {errors.name && (
-                    <p className="text-red-500 text-xs mt-1">
+                    <p className="text-red-500 text-[10px] font-medium mt-0.5 flex items-center gap-1">
                       ⚠️ {errors.name.message}
                     </p>
                   )}
@@ -224,23 +216,23 @@ const RegisterPage = () => {
 
                 {/* Email address */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email address
+                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-700 mb-0.5">
+                    ইমেইল অ্যাড্রেস
                   </label>
                   <input
                     type="email"
-                    className="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
-                    placeholder="email@example.com"
+                    className="block w-full px-3.5 py-1.5 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
+                    placeholder="example@email.com"
                     {...register("email", {
-                      required: "Email is required",
+                      required: "ইমেইল অ্যাড্রেস দেওয়া বাধ্যতামূলক",
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: "Enter a valid email address",
+                        message: "দয়া করে একটি সঠিক ইমেইল অ্যাড্রেস লিখুন",
                       },
                     })}
                   />
                   {errors.email && (
-                    <p className="text-red-500 text-xs mt-1">
+                    <p className="text-red-500 text-[10px] font-medium mt-0.5 flex items-center gap-1">
                       ⚠️ {errors.email.message}
                     </p>
                   )}
@@ -248,23 +240,24 @@ const RegisterPage = () => {
 
                 {/* Phone Number */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
+                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-700 mb-0.5">
+                    মোবাইল নাম্বার
                   </label>
                   <input
                     type="tel"
-                    className="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
-                    placeholder="017XXXXXXXX"
+                    className="block w-full px-3.5 py-1.5 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
+                    placeholder="01XXXXXXXXX"
                     {...register("phone", {
-                      required: "Phone Number is required",
+                      required: "মোবাইল নাম্বার দেওয়া বাধ্যতামূলক",
                       minLength: {
                         value: 11,
-                        message: "Phone number must be at least 11 digits",
+                        message:
+                          "মোবাইল নাম্বারটি অবশ্যই অন্তত ১১ ডিজিটের হতে হবে",
                       },
                     })}
                   />
                   {errors.phone && (
-                    <p className="text-red-500 text-xs mt-1">
+                    <p className="text-red-500 text-[10px] font-medium mt-0.5 flex items-center gap-1">
                       ⚠️ {errors.phone.message}
                     </p>
                   )}
@@ -272,23 +265,23 @@ const RegisterPage = () => {
 
                 {/* Password */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Password
+                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-700 mb-0.5">
+                    পাসওয়ার্ড
                   </label>
                   <input
                     type="password"
-                    className="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
+                    className="block w-full px-3.5 py-1.5 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
                     placeholder="••••••••"
                     {...register("password", {
-                      required: "Password is required",
+                      required: "পাসওয়ার্ড দেওয়া বাধ্যতামূলক",
                       minLength: {
                         value: 6,
-                        message: "Password must be at least 6 characters",
+                        message: "পাসওয়ার্ডটি অবশ্যই ন্যূনতম ৬ অক্ষরের হতে হবে",
                       },
                     })}
                   />
                   {errors.password && (
-                    <p className="text-red-500 text-xs mt-1">
+                    <p className="text-red-500 text-[10px] font-medium mt-0.5 flex items-center gap-1">
                       ⚠️ {errors.password.message}
                     </p>
                   )}
@@ -296,93 +289,98 @@ const RegisterPage = () => {
 
                 {/* Profile Photo */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Profile Photo
+                  <label className="block text-[11px] sm:text-xs font-semibold text-gray-700 mb-0.5">
+                    প্রোফাইল ছবি
                   </label>
                   <input
                     type="file"
-                    className="block w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-1 focus:ring-green-500"
+                    className="block w-full px-3 py-1 text-xs text-gray-500 border border-gray-300 rounded-xl cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all file:mr-3 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:text-[11px] file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
                     accept="image/*"
-                    {...register("file", { required: "Photo is required" })}
+                    {...register("file", {
+                      required: "প্রোফাইল ছবি আপলোড করা বাধ্যতামূলক",
+                    })}
                   />
                   {errors.file && (
-                    <p className="text-red-500 text-xs mt-1">
+                    <p className="text-red-500 text-[10px] font-medium mt-0.5 flex items-center gap-1">
                       ⚠️ {errors.file.message}
                     </p>
                   )}
                 </div>
 
                 <button
-                  className="w-full btn mt-2"
+                  className="w-full mt-1 font-semibold text-white py-2 rounded-xl transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gradient-to-br from-[#244B43] to-[#446E65] hover:brightness-110 hover:shadow-lg focus:ring-[#244B43] text-xs sm:text-sm"
                   type="submit"
                   disabled={spinner}
                 >
                   {spinner ? (
-                    <span className="flex items-center justify-center gap-2">
-                      Sending OTP <AiOutlineLoading className="animate-spin" />
+                    <span className="flex items-center justify-center gap-2 text-xs">
+                      ওটিপি পাঠানো হচ্ছে...{" "}
+                      <AiOutlineLoading className="animate-spin text-base" />
                     </span>
                   ) : (
-                    "Send OTP & Register"
+                    "ওটিপি পাঠান এবং নিবন্ধন করুন"
                   )}
                 </button>
               </form>
             </>
           ) : (
             /* ওটিপি কোড ও ভেরিফিকেশন বক্স */
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-gray-900">
-                Verify OTP
+            <div className="space-y-3">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-800 text-center">
+                ওটিপি ভেরিফাই করুন
               </h2>
-              <p className="text-sm text-gray-600">
-                We've sent a 6-digit confirmation code to your phone.
+              <p className="text-[11px] sm:text-xs text-gray-500 text-center leading-relaxed">
+                আপনার দেওয়া মোবাইল নাম্বারে আমরা একটি ৬ ডিজিটের ভেরিফিকেশন কোড
+                পাঠিয়েছি।
               </p>
 
               <div>
                 <input
                   type="text"
-                  placeholder="Enter 6-digit code"
+                  placeholder="৬-ডিজিটের কোড"
                   maxLength={6}
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value)}
-                  className="block w-full px-3 py-2 text-xl font-bold text-center tracking-widest border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
+                  className="block w-full px-4 py-2 text-lg font-bold text-center tracking-widest border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
                 />
               </div>
 
               <button
                 onClick={handleVerifyAndRegister}
-                className="w-full btn"
+                className="w-full font-semibold text-white py-2 rounded-xl transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gradient-to-br from-[#244B43] to-[#446E65] hover:brightness-110 hover:shadow-lg focus:ring-[#244B43] text-xs sm:text-sm"
                 disabled={spinner}
               >
                 {spinner ? (
-                  <span className="flex items-center justify-center gap-2">
-                    Verifying Account{" "}
-                    <AiOutlineLoading className="animate-spin" />
+                  <span className="flex items-center justify-center gap-2 text-xs">
+                    অ্যাকাউন্ট ভেরিফাই হচ্ছে...{" "}
+                    <AiOutlineLoading className="animate-spin text-base" />
                   </span>
                 ) : (
-                  "Verify & Complete"
+                  "ভেরিফাই এবং সম্পন্ন করুন"
                 )}
               </button>
 
               <div className="text-center">
                 <button
                   onClick={() => setConfirmationResult(null)}
-                  className="text-xs text-gray-500 hover:underline"
+                  className="text-[11px] text-gray-400 hover:text-gray-600 hover:underline transition-colors"
                 >
-                  &larr; Edit Registration Details
+                  &larr; নিবন্ধনের তথ্য পরিবর্তন করুন
                 </button>
               </div>
             </div>
           )}
 
-          <div className="mt-4 text-center">
-            <span className="text-sm text-gray-600">
-              Already have an account?{" "}
+          {/* Bottom Footer Section */}
+          <div className="mt-4 pt-3 border-t border-gray-100 text-center">
+            <span className="text-xs text-gray-500">
+              ইতিমধ্যে অ্যাকাউন্ট রয়েছে?{" "}
             </span>
             <button
               onClick={() => navigate("/login")}
-              className="text-sm font-medium text-green-600 hover:text-green-500"
+              className="text-xs font-bold text-[#244B43] hover:text-[#446E65] transition-colors"
             >
-              Sign In now
+              লগ-ইন করুন
             </button>
           </div>
         </div>

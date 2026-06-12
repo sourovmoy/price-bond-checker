@@ -1,13 +1,40 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-.active {
-  @apply bg-gray-200 p-2 md:p-1 rounded-lg;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Tiro+Bangla:ital@0;1&display=swap");
+
+body,
+input,
+select,
+textarea,
+button {
+  font-family: "Tiro Bangla", serif;
+  font-family: "Roboto", sans-serif;
 }
 
-.btn {
+.active {
+  @apply scale-102 text-gray-500;
+}
+
+/* .btn {
   @apply bg-green-500 hover:bg-green-700 text-white font-medium py-2 rounded-md transition duration-200;
+} */
+.btn {
+  @apply bg-linear-to-br from-[#244B43] to-[#446E65] text-white transition-all duration-300 hover:brightness-110;
 }
 html {
   scrollbar-gutter: stable;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
 }

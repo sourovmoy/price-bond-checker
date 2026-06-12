@@ -25,7 +25,7 @@ const RightNavbar = () => {
                 className="block focus:outline-none"
               >
                 <img
-                  className="w-10 h-10 rounded-full border-2 border-gray-500 object-cover cursor-pointer hover:scale-105 transition"
+                  className="w-10 h-10 rounded-full border-3 border-gray-500 object-cover cursor-pointer hover:scale-105 transition"
                   src={user?.photoURL}
                   alt="User"
                 />
