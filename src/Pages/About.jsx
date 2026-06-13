@@ -8,6 +8,7 @@ import {
   FaCode,
 } from "react-icons/fa";
 import Container from "../Components/Shared/Container/Container";
+import DevImg from "../assets/sourov-dash .png";
 
 const About = () => {
   return (
@@ -31,7 +32,7 @@ const About = () => {
             <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-500 to-emerald-500 p-1 mx-auto mb-4 shadow-inner">
               <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-gray-400">
                 <img
-                  src="/src/assets/sourov-dash .png"
+                  src={DevImg}
                   alt="Sourov Dash image"
                   className="rounded-full h-20 w-20"
                 />
