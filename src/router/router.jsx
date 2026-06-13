@@ -7,6 +7,8 @@ import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import Loading from "../Components/Loading/Loading";
 import About from "../Pages/About";
+import DashBoardLayout from "../Layout/DashBoardLayout";
+import PrivateRoute from "./PrivateRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -20,7 +22,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/add-price-bond",
-        element: <AddPriceBond />,
+        element: (
+          <PrivateRoute>
+            <AddPriceBond />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -35,5 +41,10 @@ export const router = createBrowserRouter([
         element: <About />,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    errorElement: <ErrorPage />,
+    element: <DashBoardLayout />,
   },
 ]);

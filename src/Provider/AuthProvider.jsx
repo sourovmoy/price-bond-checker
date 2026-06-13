@@ -7,16 +7,18 @@ import {
   signOut,
   updateProfile,
   signInWithPhoneNumber,
-  signInWithEmailAndPassword, // 🟢 ADDED: ফোন প্রোভাইডার ইম্পোর্ট
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 
+// ১. সেন্ট্রাল auth ইনস্ট্যান্স তৈরি
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ইমেইল-পাসওয়ার্ড দিয়ে নতুন ইউজার তৈরি
   const createUser = async (email, password) => {
     setLoading(true);
     try {
@@ -31,6 +33,8 @@ const AuthProvider = ({ children }) => {
       throw err;
     }
   };
+
+  // ইমেইল-পাসওয়ার্ড দিয়ে লগইন
   const signIn = async (email, password) => {
     setLoading(true);
     try {
@@ -42,6 +46,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // লগআউট
   const logout = async () => {
     setLoading(true);
     try {
@@ -52,6 +57,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // ইউজারের প্রোফাইল (নাম ও ছবি) আপডেট
   const updateUserProfile = async (name, photo) => {
     if (!auth.currentUser) throw new Error("No authenticated user found");
 
@@ -61,41 +67,35 @@ const AuthProvider = ({ children }) => {
         photoURL: photo,
       });
 
+      // ফায়ারবেসের ইন্টারনাল রেফারেন্স ব্রেক করে ফ্রেশ অবজেক্ট স্টেট আপডেট
       const updatedUser = { ...auth.currentUser };
       setUser(updatedUser);
-
       return true;
     } catch (error) {
-      throw new Error(error.message); // 🔴 UPDATE: এরর থ্রো সিনট্যাক্স ঠিক করা হয়েছে
+      throw new Error(error.message);
     }
   };
 
-  // 🔴 FIX: ওটিপি পাঠানোর ফাংশনটি ফায়ারবেসের স্ট্যান্ডার্ড নিয়মে আপডেট করা হয়েছে
+  // ওটিপি পাঠানোর মূল ফাংশন
   const sendOtpToPhone = async (phoneNumber, recaptchaVerifier) => {
     setLoading(true);
     try {
-      // এটি সরাসরি গুগল এপিআই-এর সাথে কানেক্ট করে এসএমএস পাঠাবে
       const confirmationResult = await signInWithPhoneNumber(
         auth,
         phoneNumber,
         recaptchaVerifier,
       );
       setLoading(false);
-      return confirmationResult; // এটি ওটিপি কনফার্ম করার অবজেক্ট রিটার্ন করবে
+      return confirmationResult;
     } catch (error) {
       setLoading(false);
       throw error;
     }
   };
 
+  // অথেনটিকেশন স্টেট অবজার্ভার
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        setUser(null);
-        setLoading(false);
-        return;
-      }
-
       setUser(currentUser);
       setLoading(false);
     });
@@ -103,8 +103,10 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  // ⚡ সংশোধন: useMemo-র ভেতরে মেইন 'auth' অবজেক্টটি পাস করা হয়েছে
   const authInfo = useMemo(
     () => ({
+      auth, // 🟢 এখন RegisterPage বা অন্য যেকোনো ফাইল সহজেই এই auth রিড করতে পারবে
       user,
       setUser,
       loading,
@@ -112,9 +114,9 @@ const AuthProvider = ({ children }) => {
       logout,
       updateUserProfile,
       sendOtpToPhone,
-      signIn, // 🟢 ADDED: কন্টেক্সটে ফাংশনটি পাস করা হয়েছে
+      signIn,
     }),
-    [user, loading],
+    [user, loading], // যেহেতু auth অবজেক্টটি স্ট্যাটিক, তাই ডিপেন্ডেন্সিতে শুধু ইউজার ও লোডিং থাকবে
   );
 
   return (

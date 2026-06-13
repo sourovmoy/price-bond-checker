@@ -42,9 +42,6 @@ const Home = () => {
         {renderTabContent()}
       </div>
       <FAQ />
-
-      {/* Loading state handle korar jonno context flow template block */}
-      <Loading />
     </div>
   );
 };

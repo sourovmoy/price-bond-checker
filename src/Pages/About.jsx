@@ -1,11 +1,13 @@
 import React from "react";
 import {
-  FaUserCircle,
   FaEnvelope,
   FaPhoneAlt,
   FaBriefcase,
   FaGraduationCap,
-  FaCode,
+  FaCheckCircle,
+  FaShieldAlt,
+  FaHistory,
+  FaBell,
 } from "react-icons/fa";
 import Container from "../Components/Shared/Container/Container";
 import DevImg from "../assets/sourov-dash .png";
@@ -20,28 +22,28 @@ const About = () => {
             আমাদের সম্পর্কে
           </h1>
           <p className="text-sm sm:text-base text-gray-500 mt-2 max-w-xl mx-auto leading-relaxed">
-            প্রাইস বন্ড চেকার প্ল্যাটফর্মের পেছনে থাকা মূল স্বপ্নদর্শী এবং
-            ডেভেলপারের সাথে পরিচিত হোন।
+            প্রাইজ বন্ড চেকার প্ল্যাটফর্মের পেছনে থাকা মূল স্বপ্নদর্শী এবং
+            ডেভেলারের সাথে পরিচিত হোন।
           </p>
         </div>
 
         {/* মেইন কন্টেন্ট গ্রিড */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* বাম পাশের প্রোফাইল কার্ড (৪ কলাম) */}
+          {/* বাম পাশের প্রোফাইলカード (৪ কলাম) */}
           <div className="lg:col-span-4 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm text-center">
             <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-500 to-emerald-500 p-1 mx-auto mb-4 shadow-inner">
               <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-gray-400">
                 <img
                   src={DevImg}
-                  alt="Sourov Dash image"
-                  className="rounded-full h-20 w-20"
+                  alt="Sourov Dash"
+                  className="rounded-full h-20 w-20 object-cover"
                 />
               </div>
             </div>
 
             <h2 className="text-xl font-bold text-gray-900">Sourov Dash</h2>
             <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider mt-1">
-              Full-Stack Web Developer
+              Web Developer
             </p>
 
             <div className="border-t border-dashed border-slate-100 my-5"></div>
@@ -77,45 +79,75 @@ const About = () => {
                 আমাদের লক্ষ্য ও উদ্দেশ্য
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                বাংলাদেশী প্রাইস বন্ড হোল্ডারদের ড্র-এর ফলাফল মেলানোর জটিল
-                প্রক্রিয়াকে সহজ ও ডিজিটাল করাই আমাদের মূল লক্ষ্য। কাগজের পাতায়
-                বা বড় পিডিএফ ফাইলের মাঝে প্রতি বছর ৪ বার শত শত বন্ডের নাম্বার
-                ম্যানুয়ালি খোঁজা অত্যন্ত কষ্টসাধ্য। আমাদের এই প্ল্যাটফর্মের
+                বাংলাদেশী প্রাইজ বন্ড হোল্ডারদের ড্র-এর ফলাফল মেলানোর জটিল
+                প্রক্রিয়াকে সহজ ও ডিজিটাল করাই আমাদের মূল লক্ষ্য। কাগজের পাতায়
+                বা বড় পিডিএফ ফাইলের মাঝে প্রতি বছর ৪ বার শত শত বন্ডের নাম্বার
+                ম্যানুয়ালি খোঁজা অত্যন্ত কষ্টসাধ্য। আমাদের এই প্ল্যাটফর্মের
                 মাধ্যমে ব্যবহারকারীরা মাত্র এক ক্লিকেই তাদের বন্ডের ফলাফল
-                স্বয়ংক্রিয়ভাবে লাইভ ডাটাবেজ থেকে চেক করে নিতে পারবেন।
+                স্বয়ংক্রিয়ভাবে লাইভ ডাটাবেজ থেকে চেক করে নিতে পারবেন।
               </p>
             </div>
 
-            {/* স্কিল ও এক্সপার্টাইজ */}
+            {/* নতুন সেকশন: প্ল্যাটফর্মের মূল সুবিধাসমূহ */}
             <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
               <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <span className="text-emerald-500">
-                  <FaCode />
+                  <FaCheckCircle />
                 </span>
-                ব্যবহৃত প্রযুক্তি সমূহ
+                প্ল্যাটফর্মের মূল সুবিধাসমূহ
               </h3>
-              <div className="flex flex-wrap gap-2 text-xs font-semibold text-gray-700">
-                <span className="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/60">
-                  React.js
-                </span>
-                <span className="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/60">
-                  Next.js
-                </span>
-                <span className="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/60">
-                  Tailwind CSS
-                </span>
-                <span className="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/60">
-                  Node.js
-                </span>
-                <span className="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/60">
-                  Express.js
-                </span>
-                <span className="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/60">
-                  MongoDB
-                </span>
-                <span className="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/60">
-                  Firebase Auth
-                </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600">
+                <div className="flex gap-3 p-3 rounded-xl bg-slate-50">
+                  <FaShieldAlt className="text-cyan-500 w-5 h-5 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-0.5">
+                      সুরক্ষিত বন্ড ট্র্যাকিং
+                    </h4>
+                    <p className="text-xs text-gray-500">
+                      আপনার বন্ডের নাম্বারগুলো নিরাপদে ড্যাশবোর্ডে সেভ করে রাখতে
+                      পারবেন।
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 p-3 rounded-xl bg-slate-50">
+                  <FaHistory className="text-emerald-500 w-5 h-5 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-0.5">
+                      পুরানো ড্র এর ইতিহাস
+                    </h4>
+                    <p className="text-xs text-gray-500">
+                      শুধু সাম্প্রতিক ড্র নয়, পেছনের যেকোনো ড্র-এর রেজাল্ট
+                      মুহূর্তে মেলানো সম্ভব।
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 p-3 rounded-xl bg-slate-50">
+                  <FaBell className="text-amber-500 w-5 h-5 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-0.5">
+                      ইনস্ট্যান্ট নোটিফিকেশন
+                    </h4>
+                    <p className="text-xs text-gray-500">
+                      নতুন কোনো ড্র-এর রেজাল্ট প্রকাশিত হওয়া মাত্রই সবার আগে
+                      আপডেট পেয়ে যাবেন।
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 p-3 rounded-xl bg-slate-50">
+                  <FaCheckCircle className="text-indigo-500 w-5 h-5 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-0.5">
+                      সিরিজ বন্ড চেকিং
+                    </h4>
+                    <p className="text-xs text-gray-500">
+                      একটা একটা করে বন্ড না তুলে, পুরো সিরিজ একবারে লিখে চেক
+                      করার সুবিধা।
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -131,7 +163,7 @@ const About = () => {
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 mt-2 shrink-0"></span>
                   <span>
-                    <strong>১০০% নির্ভুল ফলাফল:</strong> আমরা সরাসরি অফিশিয়াল
+                    <strong>১০০% নির্ভুল ফলাফল:</strong> আমরা সরাসরি অফিশিয়াল
                     সোর্স থেকে ড্র-এর ডেটা প্রসেস করি।
                   </span>
                 </li>
@@ -139,14 +171,14 @@ const About = () => {
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0"></span>
                   <span>
                     <strong>নিরাপদ ডেটাবেজ:</strong> আপনার ব্যক্তিগত বন্ডের
-                    নম্বরগুলো সুরক্ষিতভাবে সংরক্ষণ করা হয়।
+                    নম্বরগুলো সুরক্ষিতভাবে সংরক্ষণ করা হয়।
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0"></span>
                   <span>
                     <strong>ইউজার-ফ্রেন্ডলি UI:</strong> একদম সহজ এবং গোছানো
-                    ইন্টারফেস, যা যেকোনো বয়সের ইউজার স্বাচ্ছন্দ্যে ব্যবহার করতে
+                    ইন্টারফেস, যা যেকোনো বয়সের ইউজার স্বাচ্ছন্দ্যে ব্যবহার করতে
                     পারবেন।
                   </span>
                 </li>

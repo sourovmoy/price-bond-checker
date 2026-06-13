@@ -57,7 +57,7 @@ const WhyBuy = () => {
               <FaChartLine className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-bold text-gray-800 mb-1.5">
-              भाग्य পরিবর্তনের সুযোগ
+              ভাগ্য পরিবর্তনের সুযোগ
             </h3>
             <p className="text-xs text-gray-500 leading-relaxed">
               টাকা ব্যাংকে অলস ফেলে না রেখে বন্ড কিনে রাখলে প্রতি ৩ মাস পর পর
