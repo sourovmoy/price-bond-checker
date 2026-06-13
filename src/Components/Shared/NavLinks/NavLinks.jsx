@@ -13,6 +13,12 @@ const NavLinks = () => {
       >
         Add Price Bond
       </NavLink>
+      <NavLink
+        className={"font-semibold hover:text-gray-500 cursor-pointer"}
+        to={"/about-us"}
+      >
+        About
+      </NavLink>
     </div>
   );
 };
