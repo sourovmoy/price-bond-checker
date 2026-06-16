@@ -10,7 +10,8 @@ import About from "../Pages/About";
 import DashBoardLayout from "../Layout/DashBoardLayout";
 import PrivateRoute from "./PrivateRoute";
 import VerifyEmailPage from "../Pages/VerifyEmailPage";
-import UserDashboard from "../Pages/Dashboard/UserDashboard";
+import UserDashboard from "../Pages/Dashboard/User/UserDashboard";
+
 export const router = createBrowserRouter([
   {
     path: "/",
