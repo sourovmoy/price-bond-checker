@@ -8,29 +8,33 @@ const BannerLinks = ({ activeTab, setActiveTab }) => {
     {
       id: 1,
       name: "Why Buy?",
-      icon: <FaRegQuestionCircle className="w-5 h-5 text-amber-600" />,
+      icon: (
+        <FaRegQuestionCircle className="w-3 h-3 sm:w-5 sm:h-5 text-amber-600" />
+      ),
     },
     {
       id: 2,
       name: "Benefits",
-      icon: <FaGem className="w-5 h-5 text-cyan-600" />,
+      icon: <FaGem className="w-3 h-3 sm:w-5 sm:h-5 text-cyan-600" />,
     },
     {
       id: 3,
       name: "How to Buy?",
-      icon: <FaUniversity className="w-5 h-5 text-green-600" />,
+      icon: <FaUniversity className="w-3 h-3 sm:w-5 sm:h-5 text-green-600" />,
     },
     {
       id: 4,
       name: "Draw & Prizes",
-      icon: <HiOutlineTrophy className="w-5 h-5 text-yellow-600" />,
+      icon: (
+        <HiOutlineTrophy className="w-3 h-3 sm:w-5 sm:h-5 text-yellow-600" />
+      ),
     },
   ];
 
   return (
     <div className="relative w-full flex flex-col items-center px-4">
       {/* Floating Center Card Grid */}
-      <div className="relative z-10 -mt-8 sm:-mt-10 w-full max-w-3xl bg-white border border-gray-100/80 rounded-xl shadow-lg p-1.5 sm:p-2.5 grid grid-cols-4 gap-1.5 sm:gap-3">
+      <div className="relative z-10 -mt-8 sm:-mt-10 w-full max-w-2xl bg-white border border-gray-100/80 rounded-xl shadow-lg p-1 sm:p-2.5 grid grid-cols-4 gap-1 sm:gap-3">
         {categories.map((category) => {
           const isActive = activeTab === category.id;
 
@@ -38,7 +42,7 @@ const BannerLinks = ({ activeTab, setActiveTab }) => {
             <button
               key={category.id}
               onClick={() => setActiveTab(category.id)}
-              className={`flex flex-col items-center justify-center p-2 sm:p-3 rounded-lg border transition-all duration-300 focus:outline-none ${
+              className={`flex flex-col items-center justify-center p-1.5 sm:p-3 rounded-lg border transition-all duration-300 focus:outline-none ${
                 isActive
                   ? "border-[#244B43] bg-green-50/30 text-[#244B43] shadow-sm font-semibold"
                   : "border-gray-200/70 hover:border-gray-300 text-gray-600 hover:bg-gray-50/60 hover:scale-105"
@@ -46,7 +50,7 @@ const BannerLinks = ({ activeTab, setActiveTab }) => {
             >
               {/* Icon Container */}
               <div
-                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mb-1 sm:mb-1.5 bg-gray-50/80 border transition-transform duration-300 ${
+                className={`w-6 h-6 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mb-1 sm:mb-1.5 bg-gray-50/80 border transition-transform duration-300 ${
                   isActive
                     ? "scale-105 border-green-200 bg-white shadow-sm"
                     : "border-gray-100"

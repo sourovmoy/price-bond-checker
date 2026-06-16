@@ -1,6 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import { HiOutlineMail, HiOutlinePhone, HiOutlineLogout } from "react-icons/hi";
 import useAuth from "../../../Hooks/useAuth";
+import { Link } from "react-router";
+import { MdOutlineDashboard } from "react-icons/md";
+import { FaUserShield } from "react-icons/fa";
 
 export default function UserModal({ setIsOpen, isOpen }) {
   const { user, logout } = useAuth(); // 🟢 সরাসরি গ্লোবাল স্টেট থেকে ডাটা এবং মেথড রিসিভ
@@ -26,7 +29,21 @@ export default function UserModal({ setIsOpen, isOpen }) {
     >
       {/* 🟢 আপনার সেই চমৎকার প্রফেশনাল ইউজার ইনফো ও ইমেইল ডিজাইনের কোড... */}
       <h3 className="font-bold text-gray-800">{displayName}</h3>
-      <p className="text-sm text-gray-500">{email}</p>
+      <p className="text-sm text-gray-500 pb-2">{email}</p>
+      <div className="flex flex-col gap-1 py-3 border-y border-gray-300">
+        <Link
+          className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
+          to={"/dashboard"}
+        >
+          Dashboard <MdOutlineDashboard />
+        </Link>
+        <Link
+          className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
+          to={"#"}
+        >
+          Profile <FaUserShield />
+        </Link>
+      </div>
 
       {/* 🔴 লগআউট বাটন */}
       <button

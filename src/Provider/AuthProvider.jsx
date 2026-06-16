@@ -6,8 +6,8 @@ import {
   onAuthStateChanged,
   signOut,
   updateProfile,
-  signInWithPhoneNumber,
   signInWithEmailAndPassword,
+  sendEmailVerification, // ✉️ ইমেইল ভেরিফিকেশনের জন্য ইমপোর্ট করা হলো
 } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 
@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ইমেইল-পাসওয়ার্ড দিয়ে নতুন ইউজার তৈরি
+  // ইমেইল-পাসওয়ার্ড দিয়ে নতুন ইউজার তৈরি
   const createUser = async (email, password) => {
     setLoading(true);
     try {
@@ -34,7 +34,23 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // ইমেইল-পাসওয়ার্ড দিয়ে লগইন
+  // ✉️ ইমেইল ভেরিফিকেশন লিঙ্ক পাঠানোর ফাংশন
+  const verifyEmail = async (currentUser) => {
+    // যদি প্যারামিটারে ইউজার পাস না করা হয়, তবে কারেন্টলি লগইন থাকা ইউজারকে টার্গেট করবে
+    const targetUser = currentUser || auth.currentUser;
+    if (!targetUser)
+      throw new Error("No authenticated user found to verify email");
+
+    try {
+      await sendEmailVerification(targetUser);
+      return true;
+    } catch (error) {
+      console.error("Firebase Email Verification Error:", error);
+      throw error;
+    }
+  };
+
+  // ইমেইল-পাসওয়ার্ড দিয়ে লগইন
   const signIn = async (email, password) => {
     setLoading(true);
     try {
@@ -67,29 +83,12 @@ const AuthProvider = ({ children }) => {
         photoURL: photo,
       });
 
-      // ফায়ারবেসের ইন্টারনাল রেফারেন্স ব্রেক করে ফ্রেশ অবজেক্ট স্টেট আপডেট
+      // ফায়ারবেসের ইন্টারনাল রেফারেন্স ব্রেক করে ফ্রেশ অবজেক্ট স্টেট আপডেট
       const updatedUser = { ...auth.currentUser };
       setUser(updatedUser);
       return true;
     } catch (error) {
       throw new Error(error.message);
-    }
-  };
-
-  // ওটিপি পাঠানোর মূল ফাংশন
-  const sendOtpToPhone = async (phoneNumber, recaptchaVerifier) => {
-    setLoading(true);
-    try {
-      const confirmationResult = await signInWithPhoneNumber(
-        auth,
-        phoneNumber,
-        recaptchaVerifier,
-      );
-      setLoading(false);
-      return confirmationResult;
-    } catch (error) {
-      setLoading(false);
-      throw error;
     }
   };
 
@@ -103,20 +102,20 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // ⚡ সংশোধন: useMemo-র ভেতরে মেইন 'auth' অবজেক্টটি পাস করা হয়েছে
+  // ⚡ useMemo-তে 'verifyEmail' ফাংশনটি এক্সপোজ করা হয়েছে
   const authInfo = useMemo(
     () => ({
-      auth, // 🟢 এখন RegisterPage বা অন্য যেকোনো ফাইল সহজেই এই auth রিড করতে পারবে
+      auth,
       user,
       setUser,
       loading,
       createUser,
+      verifyEmail, // 🟢 এখন RegisterPage থেকে সরাসরি এটি কল করা যাবে
       logout,
       updateUserProfile,
-      sendOtpToPhone,
       signIn,
     }),
-    [user, loading], // যেহেতু auth অবজেক্টটি স্ট্যাটিক, তাই ডিপেন্ডেন্সিতে শুধু ইউজার ও লোডিং থাকবে
+    [user, loading],
   );
 
   return (

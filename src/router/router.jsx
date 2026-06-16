@@ -9,6 +9,8 @@ import Loading from "../Components/Loading/Loading";
 import About from "../Pages/About";
 import DashBoardLayout from "../Layout/DashBoardLayout";
 import PrivateRoute from "./PrivateRoute";
+import VerifyEmailPage from "../Pages/VerifyEmailPage";
+import UserDashboard from "../Pages/Dashboard/UserDashboard";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -40,11 +42,21 @@ export const router = createBrowserRouter([
         path: "/about-us",
         element: <About />,
       },
+      {
+        path: "/verify-email",
+        element: <VerifyEmailPage />,
+      },
     ],
   },
   {
     path: "/dashboard",
     errorElement: <ErrorPage />,
     element: <DashBoardLayout />,
+    children: [
+      {
+        index: true,
+        element: <UserDashboard />,
+      },
+    ],
   },
 ]);
