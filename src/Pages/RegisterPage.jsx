@@ -37,7 +37,7 @@ const RegisterPage = () => {
       intervalRef.current = setInterval(async () => {
         try {
           await auth.currentUser.reload(); // ফায়ারবেস লেটেস্ট স্টেট রিফ্রেশ
-
+          await auth.currentUser.getIdToken(true);
           if (auth.currentUser.emailVerified) {
             toast.success("আপনার ইমেইল সফলভাবে ভেরিফাইড হয়েছে!");
 
@@ -47,7 +47,7 @@ const RegisterPage = () => {
             navigate("/"); // অটোমেটিক হোম পেজে রিডাইরেক্ট (কোনো লগইন ছাড়াই)
           }
         } catch (error) {}
-      }, 3000);
+      }, 5000);
     }
 
     // মেমোরি লিক আটকাতে কম্পোনেন্ট বন্ধ হলে টাইমার ক্লিয়ার করা

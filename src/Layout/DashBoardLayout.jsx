@@ -16,12 +16,14 @@ import { Navigate, Outlet } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import Loading from "../Components/Loading/Loading";
 import useRole from "../Hooks/useRole";
+import DashboardSkeleton from "../Components/Skeleton/DashboardSkeleton";
 
 const DashBoardLayout = () => {
   const { loading, user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { role, roleLoading } = useRole();
-
+  if (role === "admin") return <Navigate to={"/dashboard/admin"} />;
+  if (loading || roleLoading) return <DashboardSkeleton />;
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
       {/* Sidebar */}
