@@ -11,7 +11,7 @@ const NavLinks = () => {
         className={"font-semibold hover:text-gray-500 cursor-pointer"}
         to={"/add-price-bond"}
       >
-        Add Price Bond
+        Add Bond
       </NavLink>
       <NavLink
         className={"font-semibold hover:text-gray-500 cursor-pointer"}

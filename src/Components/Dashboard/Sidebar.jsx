@@ -1,6 +1,6 @@
 import React from "react";
 import useAuth from "../../Hooks/useAuth";
-import { NavLink, useNavigate } from "react-router";
+import { Navigate, NavLink, useNavigate } from "react-router";
 import {
   FiFileText,
   FiHome,
@@ -10,10 +10,13 @@ import {
   FiX,
 } from "react-icons/fi";
 import Logo from "../Shared/Logo/Logo";
+import useRole from "../../Hooks/useRole";
+import SidebarSkeleton from "../Skeleton/SidebarSkeleton";
 
 const Sidebar = ({ open, onClose }) => {
-  const { user, logout } = useAuth();
+  const { user, logout, loading } = useAuth();
   const navigate = useNavigate();
+  const { role, roleLoading } = useRole();
 
   const handleLogout = async () => {
     await logout();
@@ -21,11 +24,16 @@ const Sidebar = ({ open, onClose }) => {
   };
   const NAV_ITEMS = [
     { to: "/dashboard", icon: <FiHome />, label: "Overview" },
-    { to: "/dashboard/profile", icon: <FiUser />, label: "My Profile" },
-    { to: "/dashboard/bonds", icon: <FiFileText />, label: "My Bonds" },
-    { to: "/dashboard/settings", icon: <FiSettings />, label: "Settings" },
+    { to: "/dashboard/my-profile", icon: <FiUser />, label: "My Profile" },
+    {
+      to: "/dashboard/my-price-bonds",
+      icon: <FiFileText />,
+      label: "My Bonds",
+    },
   ];
 
+  if (role === "admin") return <Navigate to={"/dashboard/admin"} />;
+  if (loading || roleLoading) return <SidebarSkeleton />;
   return (
     <>
       {/* Mobile overlay */}

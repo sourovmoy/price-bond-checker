@@ -12,12 +12,16 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import Sidebar from "../Components/Dashboard/Sidebar";
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import useAuth from "../Hooks/useAuth";
+import Loading from "../Components/Loading/Loading";
+import useRole from "../Hooks/useRole";
 
 const DashBoardLayout = () => {
   const { loading, user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { role, roleLoading } = useRole();
+
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
       {/* Sidebar */}

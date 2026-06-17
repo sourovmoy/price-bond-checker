@@ -11,6 +11,9 @@ import DashBoardLayout from "../Layout/DashBoardLayout";
 import PrivateRoute from "./PrivateRoute";
 import VerifyEmailPage from "../Pages/VerifyEmailPage";
 import UserDashboard from "../Pages/Dashboard/User/UserDashboard";
+import MyBonds from "../Pages/Dashboard/User/MyBonds";
+import MyProfile from "../Pages/Dashboard/User/MyProfile";
+import DashboardSkeleton from "../Components/Skeleton/DashboardSkeleton";
 
 export const router = createBrowserRouter([
   {
@@ -52,11 +55,24 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     errorElement: <ErrorPage />,
-    element: <DashBoardLayout />,
+    hydrateFallbackElement: <DashboardSkeleton />,
+    element: (
+      <PrivateRoute>
+        <DashBoardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
         element: <UserDashboard />,
+      },
+      {
+        path: "/dashboard/my-price-bonds",
+        element: <MyBonds />,
+      },
+      {
+        path: "/dashboard/my-profile",
+        element: <MyProfile />,
       },
     ],
   },

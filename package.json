@@ -14,6 +14,7 @@
     "@cloudinary/url-gen": "^1.22.0",
     "@headlessui/react": "^2.2.10",
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "^5.101.0",
     "axios": "^1.17.0",
     "canvas-confetti": "^1.9.4",
     "firebase": "^12.13.0",

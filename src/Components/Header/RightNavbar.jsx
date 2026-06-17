@@ -19,6 +19,8 @@ const NavSkeleton = () => (
 // ─── Main Component ─────────────────────────────────────────
 const RightNavbar = () => {
   const { user, logout, loading } = useAuth();
+  console.log(user);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const firstName = user?.displayName
@@ -51,7 +53,7 @@ const RightNavbar = () => {
         </div>
 
         <button onClick={logout} className="btn hidden md:inline">
-          Logout
+          Sign out
         </button>
       </div>
     );
@@ -70,7 +72,7 @@ const RightNavbar = () => {
         referrerPolicy="no-referrer"
       />
       <Link to="/login" className="btn">
-        Login
+        Sign in
       </Link>
     </div>
   );

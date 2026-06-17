@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import Container from "../Components/Shared/Container/Container";
-import useAxios from "../Hooks/useAxios";
 import useAuth from "../Hooks/useAuth";
 import { AiOutlineLoading } from "react-icons/ai";
 import { MdEmail, MdRefresh } from "react-icons/md";
@@ -10,11 +9,12 @@ import { getFirebaseErrorMessage } from "../utils/firebaseErrors";
 import { useImageUpload } from "../Hooks/useImageUpload";
 import { useNavigate } from "react-router";
 import Loading from "../Components/Loading/Loading";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const RegisterPage = () => {
   const { createUser, updateUserProfile, verifyEmail, auth, loading } =
     useAuth();
-  const axios = useAxios();
+  const axios = useAxiosSecure();
   const [spinner, setSpinner] = useState(false);
   const [resendSpinner, setResendSpinner] = useState(false);
   const [isWaitingForVerify, setIsWaitingForVerify] = useState(false);
@@ -98,7 +98,6 @@ const RegisterPage = () => {
 
       const newUser = {
         name,
-        email,
         phone: formattedPhone,
         imageUrl: uploadedImageUrl,
       };
