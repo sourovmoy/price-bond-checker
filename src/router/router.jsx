@@ -20,6 +20,7 @@ import AdminDashboardLayout from "../Layout/AdminDashboardLayout";
 import AdminDashBoard from "../Pages/Dashboard/Admin/AdminDashBoard";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
 import AllPricebonds from "../Pages/Dashboard/Admin/AllPricebonds";
+import UsersBond from "../Pages/Dashboard/Admin/UsersBond";
 
 export const router = createBrowserRouter([
   {
@@ -103,6 +104,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/my-profile",
         element: <AdminProfile />,
+      },
+      {
+        path: "/dashboard/admin/user-bonds/:id",
+        element: <UsersBond />,
       },
     ],
   },

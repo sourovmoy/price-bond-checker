@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FiMail, FiPhone, FiChevronRight, FiUser } from "react-icons/fi";
 import { AiOutlineLoading } from "react-icons/ai";
 import AllPricebondsSkeleton from "../../../Components/Skeleton/AllPricebondsSkeleton";
+import { Link } from "react-router";
 
 const AllPricebonds = () => {
   const axios = useAxiosSecure();
@@ -112,16 +113,16 @@ const AllPricebonds = () => {
 
             {/* নিচের অ্যাকশন বাটন */}
             <div className="pt-2">
-              <button
-                // onClick={() => navigate(`/admin/user-bonds/${user._id}`)} // আপনার রাউটিং লজিক অনুযায়ী আইডি পাস করবেন
-                className="w-full bg-gray-50 hover:bg-[#244B43] group text-gray-700 hover:text-white border border-gray-100 hover:border-[#244B43] py-2 px-4 rounded-xl font-medium text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5"
+              <Link
+                to={`/dashboard/admin/user-bonds/${user._id}`}
+                className="w-full bg-green-200 hover:bg-[#244B43] group text-gray-700 hover:text-white border border-gray-100 hover:border-[#244B43] py-2 px-4 rounded-xl font-medium text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5"
               >
                 বন্ডসমূহ দেখুন
                 <FiChevronRight
                   className="text-gray-400 group-hover:text-white group-hover:translate-x-0.5 transition-all"
                   size={16}
                 />
-              </button>
+              </Link>
             </div>
           </div>
         ))}
