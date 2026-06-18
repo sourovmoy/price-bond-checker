@@ -16,14 +16,13 @@ const AllPricebonds = () => {
   } = useQuery({
     queryKey: ["adminAllUsersBonds"],
     queryFn: async () => {
-      const res = await axios.get("/admin/all-users-bonds"); // আপনার ব্যাকএন্ড এন্ডপয়েন্ট অনুযায়ী পরিবর্তন করে নিবেন
+      const res = await axios.get("/admin/all-users-bonds");
       return res.data;
     },
     refetchOnWindowFocus: false,
     refetchInterval: 3000,
   });
 
-  // এরর স্টেট
   if (isError) {
     return (
       <div className="text-center py-12 text-red-500">
@@ -32,7 +31,8 @@ const AllPricebonds = () => {
     );
   }
 
-  // কোনো ইউজার না থাকলে
+  if (isLoading) return <AllPricebondsSkeleton />;
+
   if (users.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-gray-400 text-sm gap-2">
@@ -41,8 +41,6 @@ const AllPricebonds = () => {
       </div>
     );
   }
-  if (isLoading) return <AllPricebondsSkeleton length={users?.length} />;
-  console.log(users, isLoading);
 
   return (
     <div className="p-4 sm:p-6 bg-gray-50/50 min-h-screen">

@@ -7,11 +7,11 @@ import MyBondsSkeleton from "../../../Components/Skeleton/MyBondsSkeleton";
 
 const MyBonds = () => {
   const axios = useAxiosSecure();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
   const { data, isLoading } = useQuery({
     queryKey: ["myBonds", user?.email],
-    enabled: !!user?.email,
+    enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axios.get("/my-price-bond");
       return res.data;

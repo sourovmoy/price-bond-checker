@@ -37,7 +37,10 @@ const MenuModal = ({ setIsMenuModalOpen, isMenuModalOpen }) => {
 
         {/* মেনুর কন্টেন্ট */}
         <div className="space-y-4">
-          <NavLinks />
+          <NavLinks
+            setIsMenuModalOpen={setIsMenuModalOpen}
+            isMenuModalOpen={isMenuModalOpen}
+          />
           {/* এখানে আপনার মোবাইল নেভিগেশন লিঙ্কগুলো (Link) বসিয়ে দিন */}
         </div>
       </div>

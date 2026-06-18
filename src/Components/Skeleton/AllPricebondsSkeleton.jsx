@@ -1,8 +1,8 @@
 import React from "react";
 
-const AllPricebondsSkeleton = ({ length = 4 }) => {
+const AllPricebondsSkeleton = () => {
   // প্রপ্স হিসেবে আসা length অনুযায়ী ডামি অ্যারে তৈরি করা
-  const skeletonCards = Array.from({ length: length });
+  const skeletonCards = Array.from({ length: 8 });
 
   return (
     <div className="p-4 sm:p-6 bg-gray-50/50 min-h-screen">

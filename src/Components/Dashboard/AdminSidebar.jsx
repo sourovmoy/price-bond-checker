@@ -16,6 +16,7 @@ const AdminSidebar = ({ open, onClose }) => {
     await logout();
     navigate("/login");
   };
+
   const NAV_ITEMS = [
     { to: "/dashboard/admin", icon: <FiHome />, label: "সারসংক্ষেপ" },
     {

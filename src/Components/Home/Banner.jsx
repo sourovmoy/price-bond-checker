@@ -8,7 +8,7 @@ const Banner = () => {
     <div className="relative w-full">
       {/* Skeleton — ছবি লোড হওয়ার আগে দেখাবে */}
       {!loaded && (
-        <div className="w-full h-48 sm:h-64 md:h-80 lg:h-96 bg-gray-200 animate-pulse rounded-sm" />
+        <div className="w-full h-40 md:h-80 lg:h-96 bg-gray-200 animate-pulse rounded-sm" />
       )}
 
       {/* Banner image */}
@@ -16,7 +16,7 @@ const Banner = () => {
         src={banner}
         alt="Banner"
         onLoad={() => setLoaded(true)}
-        className={`w-full transition-opacity duration-500 ${
+        className={`w-full h-40 md:h-100 transition-opacity duration-500 ${
           loaded ? "opacity-100" : "opacity-0 absolute inset-0"
         }`}
       />

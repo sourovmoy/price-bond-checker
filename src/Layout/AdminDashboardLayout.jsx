@@ -23,7 +23,7 @@ const AdminDashboardLayout = () => {
         <header className="flex items-center justify-between px-4 sm:px-6 h-14 bg-green-100 border-b border-gray-100 shrink-0">
           {/* Hamburger — mobile only */}
           <button
-            // onClick={() => setSidebarOpen(true)}
+            onClick={() => setSidebarOpen(true)}
             className="lg:hidden text-gray-500 hover:text-[#244B43] transition-colors"
             aria-label="Open menu"
           >

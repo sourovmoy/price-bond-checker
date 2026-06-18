@@ -17,11 +17,11 @@ import UserOverviewSkeleton from "../../../Components/Skeleton/UserOverviewSkele
 
 const UserDashboard = () => {
   const axios = useAxiosSecure();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
   const { data, isLoading } = useQuery({
     queryKey: ["dashboardStats", user?.email],
-    enabled: !!user?.email,
+    enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axios.get("/dashboard/stats");
       return res.data;

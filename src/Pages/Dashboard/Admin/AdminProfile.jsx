@@ -16,7 +16,7 @@ import useRole from "../../../Hooks/useRole";
 import AdminProfileSkeleton from "../../../Components/Skeleton/AdminProfileSkeleton";
 
 const AdminProfile = () => {
-  const { user, updateUserProfile } = useAuth();
+  const { user, updateUserProfile, loading } = useAuth();
   const axios = useAxiosSecure();
   const { uploadImage } = useImageUpload();
   const { role, roleLoading } = useRole();
@@ -72,6 +72,15 @@ const AdminProfile = () => {
         border: "border-purple-200",
         icon: <FiShield size={11} />,
       };
+
+    // Default fallback for any other role or undefined
+    return {
+      label: role || "ব্যবহারকারী",
+      bg: "bg-gray-50",
+      text: "text-gray-700",
+      border: "border-gray-200",
+      icon: <FiShield size={11} />,
+    };
   };
 
   const badge = getRoleBadge();
@@ -84,7 +93,7 @@ const AdminProfile = () => {
       })
     : "—";
 
-  if (roleLoading) return <AdminProfileSkeleton />;
+  if (roleLoading || spinner || loading) return <AdminProfileSkeleton />;
 
   return (
     <div className="p-2 sm:p-6 max-w-2xl mx-auto">

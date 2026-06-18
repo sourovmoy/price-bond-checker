@@ -12,7 +12,6 @@ axiosInstance.interceptors.request.use(
     try {
       const auth = getAuth();
       const currentUser = auth.currentUser;
-
       if (currentUser && typeof currentUser.getIdToken === "function") {
         const token = await currentUser.getIdToken();
         if (token) {

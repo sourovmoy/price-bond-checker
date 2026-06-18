@@ -53,7 +53,7 @@ const AddPriceBond = () => {
 
   return (
     <Container>
-      <div className="max-w-5xl mx-auto py-10 px-4 animate-fadeIn">
+      <div className="max-w-5xl mx-auto py-10 px-2 md:px-4 animate-fadeIn">
         {/* Header Section */}
         <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-gray-800 tracking-tight">
