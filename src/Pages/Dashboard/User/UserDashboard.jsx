@@ -27,6 +27,7 @@ const UserDashboard = () => {
       return res.data;
     },
     refetchOnWindowFocus: false,
+    refetchInterval: 3000,
   });
 
   const {

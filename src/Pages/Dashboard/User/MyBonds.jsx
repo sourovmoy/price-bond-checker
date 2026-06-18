@@ -17,6 +17,7 @@ const MyBonds = () => {
       return res.data;
     },
     refetchOnWindowFocus: false,
+    refetchInterval: 3000,
   });
 
   const bonds = data?.PriceBond || [];

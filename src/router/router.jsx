@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router";
+import React from "react";
 import MainLayout from "../Layout/MainLayout";
 import AddPriceBond from "../Pages/AddPriceBond";
 import ErrorPage from "../Pages/ErrorPage";
@@ -14,6 +15,11 @@ import UserDashboard from "../Pages/Dashboard/User/UserDashboard";
 import MyBonds from "../Pages/Dashboard/User/MyBonds";
 import MyProfile from "../Pages/Dashboard/User/MyProfile";
 import DashboardSkeleton from "../Components/Skeleton/DashboardSkeleton";
+import AdminRoute from "./AdminRoute";
+import AdminDashboardLayout from "../Layout/AdminDashboardLayout";
+import AdminDashBoard from "../Pages/Dashboard/Admin/AdminDashBoard";
+import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
+import AllPricebonds from "../Pages/Dashboard/Admin/AllPricebonds";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +79,30 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/my-profile",
         element: <MyProfile />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard/admin",
+    errorElement: <ErrorPage />,
+    hydrateFallbackElement: <DashboardSkeleton />,
+    element: (
+      <AdminRoute>
+        <AdminDashboardLayout />
+      </AdminRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <AdminDashBoard />,
+      },
+      {
+        path: "/dashboard/admin/all-bonds",
+        element: <AllPricebonds />,
+      },
+      {
+        path: "/dashboard/admin/my-profile",
+        element: <AdminProfile />,
       },
     ],
   },

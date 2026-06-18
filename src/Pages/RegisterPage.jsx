@@ -105,7 +105,6 @@ const RegisterPage = () => {
 
       setIsWaitingForVerify(true);
     } catch (error) {
-      console.error("❌ Registration Error:", error);
       toast.error(
         getFirebaseErrorMessage(error) ||
           error.message ||

@@ -4,10 +4,12 @@ import useAuth from "../../../Hooks/useAuth";
 import { Link } from "react-router";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserShield } from "react-icons/fa";
+import useRole from "../../../Hooks/useRole";
 
 export default function UserModal({ setIsOpen, isOpen }) {
   const { user, logout } = useAuth(); // 🟢 সরাসরি গ্লোবাল স্টেট থেকে ডাটা এবং মেথড রিসিভ
   const dropdownRef = useRef(null);
+  const { role } = useRole();
 
   // বাইরে ক্লিক করলে ড্রপডাউন বন্ধ করার চমৎকার লজিক
   useEffect(() => {
@@ -31,18 +33,37 @@ export default function UserModal({ setIsOpen, isOpen }) {
       <h3 className="font-bold text-gray-800">{displayName}</h3>
       <p className="text-sm text-gray-500 pb-2">{email}</p>
       <div className="flex flex-col gap-1 py-3 border-y border-gray-300">
-        <Link
-          className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
-          to={"/dashboard"}
-        >
-          Dashboard <MdOutlineDashboard />
-        </Link>
-        <Link
-          className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
-          to={"/dashboard/my-profile"}
-        >
-          Profile <FaUserShield />
-        </Link>
+        {role === "admin" ? (
+          <Link
+            className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
+            to={"/dashboard/admin"}
+          >
+            Dashboard <MdOutlineDashboard />
+          </Link>
+        ) : (
+          <Link
+            className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
+            to={"/dashboard"}
+          >
+            Dashboard <MdOutlineDashboard />
+          </Link>
+        )}
+
+        {role === "admin" ? (
+          <Link
+            className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
+            to={"/dashboard/admin/my-profile"}
+          >
+            Profile <FaUserShield />
+          </Link>
+        ) : (
+          <Link
+            className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
+            to={"/dashboard/my-profile"}
+          >
+            Profile <FaUserShield />
+          </Link>
+        )}
       </div>
 
       {/* 🔴 লগআউট বাটন */}

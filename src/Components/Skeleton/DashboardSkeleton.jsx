@@ -17,7 +17,7 @@ const DashboardSkeleton = () => {
           </div>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1">
-          {[...Array(3)].map((_, i) => (
+          {[...Array(4)].map((_, i) => (
             <div
               key={i}
               className="h-10 rounded-lg bg-white/10 animate-pulse"
