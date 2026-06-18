@@ -9,6 +9,7 @@ import {
   FiUser,
   FiX,
 } from "react-icons/fi";
+import { FaBackspace } from "react-icons/fa";
 import Logo from "../Shared/Logo/Logo";
 import useRole from "../../Hooks/useRole";
 import SidebarSkeleton from "../Skeleton/SidebarSkeleton";
@@ -23,13 +24,14 @@ const Sidebar = ({ open, onClose }) => {
     navigate("/login");
   };
   const NAV_ITEMS = [
-    { to: "/dashboard", icon: <FiHome />, label: "Overview" },
-    { to: "/dashboard/my-profile", icon: <FiUser />, label: "My Profile" },
+    { to: "/dashboard", icon: <FiHome />, label: "সারসংক্ষেপ" },
+    { to: "/dashboard/my-profile", icon: <FiUser />, label: "আমার প্রোফাইল" },
     {
       to: "/dashboard/my-price-bonds",
       icon: <FiFileText />,
-      label: "My Bonds",
+      label: "আমার বন্ড",
     },
+    { to: "/", icon: <FaBackspace />, label: "হোম" },
   ];
 
   if (role === "admin") return <Navigate to={"/dashboard/admin"} />;

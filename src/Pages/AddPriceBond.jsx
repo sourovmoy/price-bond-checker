@@ -39,7 +39,6 @@ const AddPriceBond = () => {
         toast.error("যুক্ত করা যায়নি / বন্ডটি অলরেডি আপনার তালিকায় আছে");
       }
     } catch (error) {
-      console.log("error from add pricebond", error.message);
       toast.error(
         error.response?.data?.message || "বন্ড যুক্ত করতে ব্যর্থ হয়েছেন",
       );

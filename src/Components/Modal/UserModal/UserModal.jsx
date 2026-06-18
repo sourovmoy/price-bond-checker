@@ -39,7 +39,7 @@ export default function UserModal({ setIsOpen, isOpen }) {
         </Link>
         <Link
           className="flex justify-between items-center py-1 rounded-sm font-medium hover:bg-gray-200"
-          to={"#"}
+          to={"/dashboard/my-profile"}
         >
           Profile <FaUserShield />
         </Link>
