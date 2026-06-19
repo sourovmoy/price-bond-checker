@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Banner from "../Components/Home/Banner";
-import Loading from "../Components/Loading/Loading";
 import WhyBuy from "../Components/Home/BannerLinks/WhyBuy";
 import Benefits from "../Components/Home/BannerLinks/Benefits";
 import HowToBuy from "../Components/Home/BannerLinks/HowToBuy";
