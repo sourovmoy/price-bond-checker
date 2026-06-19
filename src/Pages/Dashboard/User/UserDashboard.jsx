@@ -2,18 +2,10 @@ import React from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-} from "recharts";
 import { FiAward, FiTrendingUp, FiXCircle, FiClock } from "react-icons/fi";
 import { TbCurrencyTaka } from "react-icons/tb";
 import UserOverviewSkeleton from "../../../Components/Skeleton/UserOverviewSkeleton";
+import UserPriceBondChart from "../../../Components/Charts/UserPriceBondChart";
 
 const UserDashboard = () => {
   const axios = useAxiosSecure();
@@ -128,15 +120,7 @@ const UserDashboard = () => {
               কোনো তথ্য নেই
             </div>
           ) : (
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={chartData} barSize={28}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                <XAxis dataKey="month" tick={{ fontSize: 11 }} />
-                <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-                <Tooltip />
-                <Bar dataKey="বন্ড" fill="#244B43" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            <UserPriceBondChart chartData={chartData} />
           )}
         </div>
 
