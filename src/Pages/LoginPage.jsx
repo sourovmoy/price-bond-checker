@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Container from "../Components/Shared/Container/Container";
 import useAuth from "../Hooks/useAuth";
@@ -6,10 +6,12 @@ import { Link, useNavigate } from "react-router";
 import Loading from "../Components/Loading/Loading";
 import toast from "react-hot-toast";
 import { getFirebaseErrorMessage } from "../utils/firebaseErrors";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const LoginPage = () => {
   const { signIn, loading, verifyEmail } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -75,30 +77,38 @@ const LoginPage = () => {
               </div>
 
               <div>
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
+                <label className="block text-[11px] sm:text-xs font-semibold text-gray-700 mb-0.5">
+                  পাসওয়ার্ড
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="block w-full px-3.5 py-1.5 pr-10 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
+                    placeholder="••••••••"
+                    {...register("password", {
+                      required: "পাসওয়ার্ড দেওয়া আবশ্যক",
+                      minLength: {
+                        value: 6,
+                        message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে",
+                      },
+                    })}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                    tabIndex={-1}
                   >
-                    পাসওয়ার্ড
-                  </label>
+                    {showPassword ? (
+                      <FiEyeOff size={15} />
+                    ) : (
+                      <FiEye size={15} />
+                    )}
+                  </button>
                 </div>
-                <input
-                  type="password"
-                  className="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500"
-                  placeholder="••••••••"
-                  {...register("password", {
-                    required: "পাসওয়ার্ড দেওয়া আবশ্যক",
-                    minLength: {
-                      value: 6,
-                      message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে",
-                    },
-                  })}
-                />
                 {errors.password && (
-                  <p className="text-red-500 text-xs sm:text-sm mt-2 flex items-center">
-                    <span className="mr-1">⚠️</span>
-                    {errors.password.message}
+                  <p className="text-red-500 text-[10px] mt-0.5">
+                    ⚠️ {errors.password.message}
                   </p>
                 )}
               </div>

@@ -10,6 +10,7 @@ import { useImageUpload } from "../Hooks/useImageUpload";
 import { useNavigate } from "react-router";
 import Loading from "../Components/Loading/Loading";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const RegisterPage = () => {
   const { createUser, updateUserProfile, verifyEmail, auth, loading } =
@@ -20,6 +21,7 @@ const RegisterPage = () => {
   const [isWaitingForVerify, setIsWaitingForVerify] = useState(false);
   const { uploadImage } = useImageUpload();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   // ব্যাকগ্রাউন্ড টাইমার বা ইন্টারভাল ট্র্যাক করার জন্য রেফারেন্স
   const intervalRef = useRef(null);
@@ -167,7 +169,7 @@ const RegisterPage = () => {
   // ডিফল্ট রেজিস্ট্রেশন ফর্ম UI
   return (
     <Container>
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-90px)] py-2 px-1 md:px-4 overflow-hidden">
+      <div className="flex flex-col items-center justify-center py-2 px-1 md:px-4 overflow-hidden">
         <div className="w-full max-w-md p-5 border border-gray-100 rounded-2xl shadow-xl bg-white">
           <h2 className="mb-4 text-xl sm:text-2xl font-extrabold text-gray-800 tracking-tight text-center">
             নতুন অ্যাকাউন্ট তৈরি করুন
@@ -182,7 +184,7 @@ const RegisterPage = () => {
               <input
                 type="text"
                 className="block w-full px-3.5 py-1.5 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
-                placeholder="যেমন: সৌভভ দাশ"
+                placeholder="যেমন: Jon Leo"
                 {...register("name", { required: "আপনার নাম দেওয়া আবশ্যক" })}
               />
               {errors.name && (
@@ -242,18 +244,28 @@ const RegisterPage = () => {
               <label className="block text-[11px] sm:text-xs font-semibold text-gray-700 mb-0.5">
                 পাসওয়ার্ড
               </label>
-              <input
-                type="password"
-                className="block w-full px-3.5 py-1.5 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
-                placeholder="••••••••"
-                {...register("password", {
-                  required: "পাসওয়ার্ড দেওয়া আবশ্যক",
-                  minLength: {
-                    value: 6,
-                    message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে",
-                  },
-                })}
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="block w-full px-3.5 py-1.5 pr-10 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
+                  placeholder="••••••••"
+                  {...register("password", {
+                    required: "পাসওয়ার্ড দেওয়া আবশ্যক",
+                    minLength: {
+                      value: 6,
+                      message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে",
+                    },
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <FiEyeOff size={15} /> : <FiEye size={15} />}
+                </button>
+              </div>
               {errors.password && (
                 <p className="text-red-500 text-[10px] mt-0.5">
                   ⚠️ {errors.password.message}

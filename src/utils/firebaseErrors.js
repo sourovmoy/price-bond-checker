@@ -3,33 +3,36 @@ export const getFirebaseErrorMessage = (error) => {
 
   const messages = {
     "auth/email-already-in-use":
-      "This email is already registered. Try logging in instead.",
+      "এই ইমেইলটি আগে থেকেই নিবন্ধিত। লগইন করার চেষ্টা করুন।",
 
-    "auth/invalid-email": "Please enter a valid email address.",
+    "auth/invalid-email": "সঠিক ইমেইল অ্যাড্রেস দিন।",
 
-    "auth/weak-password": "Password is too weak. Use at least 6 characters.",
+    "auth/weak-password":
+      "পাসওয়ার্ড অনেক দুর্বল। কমপক্ষে ৬ অক্ষর ব্যবহার করুন।",
 
-    "auth/missing-password": "Password is required.",
+    "auth/missing-password": "পাসওয়ার্ড দেওয়া আবশ্যক।",
 
-    "auth/missing-email": "Email is required.",
+    "auth/missing-email": "ইমেইল দেওয়া আবশ্যক।",
 
     "auth/operation-not-allowed":
-      "Email/password sign-up is disabled. Contact support.",
+      "ইমেইল/পাসওয়ার্ড দিয়ে নিবন্ধন বন্ধ রয়েছে। সাপোর্টে যোগাযোগ করুন।",
 
     "auth/network-request-failed":
-      "Network error. Please check your internet connection.",
+      "নেটওয়ার্ক সমস্যা। আপনার ইন্টারনেট সংযোগ চেক করুন।",
 
     "auth/user-not-found":
-      "No account found with this email. Please sign up first.",
+      "এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট পাওয়া যায়নি। প্রথমে নিবন্ধন করুন।",
 
-    "auth/wrong-password": "Incorrect password. Please try again.",
+    "auth/wrong-password": "ভুল পাসওয়ার্ড। আবার চেষ্টা করুন।",
 
-    "auth/invalid-credential": "Invalid email or password.",
+    "auth/invalid-credential": "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।",
 
-    "auth/too-many-requests": "Too many attempts. Please try again later.",
+    "auth/too-many-requests":
+      "অনেকবার চেষ্টা করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।",
 
-    "auth/user-disabled": "This account has been disabled. Contact support.",
+    "auth/user-disabled":
+      "এই অ্যাকাউন্টটি নিষ্ক্রিয় করা হয়েছে। সাপোর্টে যোগাযোগ করুন।",
   };
 
-  return messages[code] || "Something went wrong. Please try again.";
+  return messages[code] || "কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।";
 };

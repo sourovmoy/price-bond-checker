@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Navigate, useLocation } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
-import DashboardSkeleton from "../Components/Skeleton/DashboardSkeleton";
+import Loading from "../Components/Loading/Loading";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -20,7 +20,7 @@ const PrivateRoute = ({ children }) => {
     }
   }, [user, loading, isVerified]);
 
-  if (loading) return <DashboardSkeleton />;
+  if (loading) return <Loading />;
 
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;

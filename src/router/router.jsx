@@ -21,6 +21,7 @@ import AdminDashBoard from "../Pages/Dashboard/Admin/AdminDashBoard";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
 import AllPricebonds from "../Pages/Dashboard/Admin/AllPricebonds";
 import UsersBond from "../Pages/Dashboard/Admin/UsersBond";
+import UploadResult from "../Pages/Dashboard/Admin/UploadResult";
 
 export const router = createBrowserRouter([
   {
@@ -108,6 +109,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/user-bonds/:id",
         element: <UsersBond />,
+      },
+      {
+        path: "/dashboard/admin/user-bonds/:id",
+        element: <UsersBond />,
+      },
+      {
+        path: "/dashboard/admin/upload-result",
+        element: <UploadResult />,
       },
     ],
   },

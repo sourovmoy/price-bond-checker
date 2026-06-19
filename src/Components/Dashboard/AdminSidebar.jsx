@@ -6,6 +6,7 @@ import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 import Logo from "../Shared/Logo/Logo";
 import { SlDocs } from "react-icons/sl";
+import { GrDocumentPdf } from "react-icons/gr";
 
 const AdminSidebar = ({ open, onClose }) => {
   const { user, logout, loading } = useAuth();
@@ -28,6 +29,11 @@ const AdminSidebar = ({ open, onClose }) => {
       to: "/dashboard/admin/all-bonds",
       icon: <SlDocs />,
       label: "বন্ডসমূহ",
+    },
+    {
+      to: "/dashboard/admin/upload-result",
+      icon: <GrDocumentPdf />,
+      label: "ফলাফল আপলোড",
     },
     { to: "/", icon: <FaBackspace />, label: "হোম" },
   ];

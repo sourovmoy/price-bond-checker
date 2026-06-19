@@ -25,19 +25,29 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="#search"
+                  to="/add-price-bond"
+                  className="hover:text-emerald-400 transition-colors duration-200"
+                >
+                  বন্ড যোগ করুন
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/my-price-bonds"
                   className="hover:text-emerald-400 transition-colors duration-200"
                 >
                   বন্ড চেক করুন
                 </Link>
               </li>
               <li>
-                <Link
-                  href="#latest-draw"
+                <a
+                  href="https://www.bb.org.bd/en/index.php/Investfacility/prizebond"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-emerald-400 transition-colors duration-200"
                 >
-                  সর্বশেষ ড্র এর ফলাফল
-                </Link>
+                  ড্র এর ফলাফল
+                </a>
               </li>
               <li>
                 <Link
