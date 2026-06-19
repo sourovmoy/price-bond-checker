@@ -10,10 +10,8 @@ import FAQ from "../Components/Home/FAQ/FAQ";
 // 🔥 Import BannerLinks and all Bangla content components
 
 const Home = () => {
-  // 🎯 Top Active Tab State Manager (Default set to 1 -> Why Buy)
   const [activeTab, setActiveTab] = useState(1);
 
-  // Function to determine which component to render dynamically
   const renderTabContent = () => {
     switch (activeTab) {
       case 1:
