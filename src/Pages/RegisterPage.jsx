@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import Loading from "../Components/Loading/Loading";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import GoogleBtn from "../Components/Shared/GoogleBtn/GoogleBtn";
 
 const RegisterPage = () => {
   const { createUser, updateUserProfile, verifyEmail, auth, loading } =
@@ -104,7 +105,6 @@ const RegisterPage = () => {
         imageUrl: uploadedImageUrl,
       };
       await axios.post("/user", newUser);
-
       setIsWaitingForVerify(true);
     } catch (error) {
       toast.error(
@@ -175,7 +175,7 @@ const RegisterPage = () => {
             নতুন অ্যাকাউন্ট তৈরি করুন
           </h2>
 
-          <form className="space-y-3.5" onSubmit={handleSubmit(onSubmit)}>
+          <form className="space-y-3.5 pb-3" onSubmit={handleSubmit(onSubmit)}>
             {/* Full Name */}
             <div>
               <label className="block text-[11px] sm:text-xs font-semibold text-gray-700 mb-0.5">
@@ -308,6 +308,8 @@ const RegisterPage = () => {
               )}
             </button>
           </form>
+          {/* Google btn */}
+          <GoogleBtn />
 
           <div className="mt-4 pt-3 border-t border-gray-100 text-center">
             <span className="text-xs text-gray-500">

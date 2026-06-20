@@ -1,6 +1,6 @@
-// MyProfile.jsx
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"; // ✅ ইমপোর্ট করুন
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useImageUpload } from "../../../Hooks/useImageUpload";
@@ -13,7 +13,7 @@ const MyProfile = () => {
   const { user, loading, updateUserProfile } = useAuth();
   const axios = useAxiosSecure();
   const { uploadImage } = useImageUpload();
-  const [spinner, setSpinner] = useState(false);
+  const queryClient = useQueryClient(); // ✅ কুয়েরি ক্লিয়ার/রিফেচ করার জন্য
   const [preview, setPreview] = useState(null);
 
   const {
@@ -23,12 +23,44 @@ const MyProfile = () => {
     formState: { errors },
   } = useForm();
 
-  // ✅ form এ default value set করো
+  // 🔄 ১. useQuery দিয়ে ডাটাবেজ থেকে লেটেস্ট ডাটা নিয়ে আসা
+  const { data: dbUser, isLoading: isDbLoading } = useQuery({
+    queryKey: ["my-profile", user?.email],
+    enabled: !!user?.email, // ইউজারের ইমেইল থাকলেই কেবল রান হবে
+    queryFn: async () => {
+      const res = await axios.get("/user/me");
+      return res.data;
+    },
+  });
+
+  // ✅ ডাটাবেজ থেকে ডাটা আসবামাত্র ফর্মের ইনপুট ফিল্ডে ডিফল্ট ভ্যালু সেট হবে
   useEffect(() => {
-    if (user) {
-      setValue("name", user.displayName || "");
+    if (dbUser) {
+      setValue("name", dbUser.name || user?.displayName || "");
+      setValue("phone", dbUser.phone || "");
+      if (dbUser.imageUrl) {
+        setPreview(dbUser.imageUrl);
+      }
     }
-  }, [user, setValue]);
+  }, [dbUser, user, setValue]);
+
+  // 🚀 ২. useMutation দিয়ে প্রোফাইল আপডেট করার লজিক
+  const profileMutation = useMutation({
+    mutationFn: async (updatedData) => {
+      const res = await axios.patch("/user/update-profile", updatedData);
+      return res.data;
+    },
+    onSuccess: () => {
+      toast.success("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
+
+      // 🔥 এই লাইনটিই ম্যাজিক করবে: ডাটাবেজ থেকে ডাটা অটো-রিফেচ (Refetch) করবে
+      queryClient.invalidateQueries({ queryKey: ["my-profile", user?.email] });
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("প্রোফাইল আপডেট ব্যর্থ হয়েছে!");
+    },
+  });
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -38,11 +70,12 @@ const MyProfile = () => {
   };
 
   const onSubmit = async (data) => {
-    setSpinner(true);
     try {
-      let photoURL = user?.photoURL || "";
+      const phone = data?.phone;
 
-      // ছবি পরিবর্তন হলে upload করো
+      let photoURL = preview || user?.photoURL || "";
+      const formattedPhone = phone.startsWith("+88") ? phone : `+88${phone}`;
+
       const file = data?.photo?.[0];
       if (file) {
         const uploaded = await uploadImage(file);
@@ -50,23 +83,25 @@ const MyProfile = () => {
       }
 
       // Firebase profile update
-      await updateUserProfile(data.name, photoURL);
+      if (user) {
+        await updateUserProfile(data.name, photoURL);
+      }
 
-      // Backend update
-      await axios.patch("/user/update-profile", {
+      // ✅ React Query Mutation ট্রিগার করা হচ্ছে
+      profileMutation.mutate({
         name: data.name,
         imageUrl: photoURL,
+        phone: formattedPhone,
       });
-
-      toast.success("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
     } catch (error) {
-      toast.error("প্রোফাইল আপডেট ব্যর্থ হয়েছে!", error);
-    } finally {
-      setSpinner(false);
+      console.log(error.message);
+
+      toast.error("ছবি আপলোড বা ফায়ারবেস আপডেটে সমস্যা হয়েছে!");
     }
   };
 
-  if (loading) return <MyProfileSkeleton />;
+  // ✅ লোডিং হ্যান্ডলিং (ফায়ারবেস অথ অথবা রিয়্যাক্ট কুয়েরি যেকোনো একটি লোড হলে স্কেলেটন দেখাবে)
+  if (loading || isDbLoading) return <MyProfileSkeleton />;
 
   return (
     <div className="p-4 sm:p-6 max-w-xl mx-auto">
@@ -130,6 +165,27 @@ const MyProfile = () => {
             )}
           </div>
 
+          {/* Phone Number */}
+          <div>
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
+              মোবাইল নম্বর
+            </label>
+            <input
+              type="tel"
+              className="block w-full px-3.5 py-1.5 text-xs sm:text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-[#244B43] transition-all"
+              placeholder="01XXXXXXXXX"
+              {...register("phone", {
+                required: "মোবাইল নাম্বার দেওয়া আবশ্যক",
+                minLength: { value: 11, message: "কমপক্ষে ১১ ডিজিট হতে হবে" },
+              })}
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-[10px] mt-1">
+                ⚠️ {errors.phone.message}
+              </p>
+            )}
+          </div>
+
           {/* Email — readonly */}
           <div>
             <label className="block text-xs font-semibold text-gray-700 mb-1">
@@ -149,10 +205,10 @@ const MyProfile = () => {
           {/* Submit */}
           <button
             type="submit"
-            disabled={spinner}
+            disabled={profileMutation.isPending} // ✅ রিয়্যাক্ট কুয়েরির ডিফল্ট লোডিং স্টেট
             className="w-full font-semibold text-white py-2.5 rounded-xl transition-all shadow-md bg-gradient-to-br from-[#244B43] to-[#446E65] hover:brightness-110 disabled:opacity-50 text-sm flex items-center justify-center gap-2"
           >
-            {spinner ? (
+            {profileMutation.isPending ? (
               <>
                 আপডেট হচ্ছে...
                 <AiOutlineLoading className="animate-spin text-base" />

@@ -7,6 +7,7 @@ import Loading from "../Components/Loading/Loading";
 import toast from "react-hot-toast";
 import { getFirebaseErrorMessage } from "../utils/firebaseErrors";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import GoogleBtn from "../Components/Shared/GoogleBtn/GoogleBtn";
 
 const LoginPage = () => {
   const { signIn, loading, verifyEmail } = useAuth();
@@ -48,7 +49,7 @@ const LoginPage = () => {
               আপনার অ্যাকাউন্টে প্রবেশ করুন
             </h2>
 
-            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+            <form className="space-y-4 mb-3" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label
                   htmlFor="email"
@@ -119,6 +120,7 @@ const LoginPage = () => {
                 </button>
               </div>
             </form>
+            <GoogleBtn />
 
             <div className="mt-6 text-center">
               <span className="text-sm text-gray-600">অ্যাকাউন্ট নেই? </span>

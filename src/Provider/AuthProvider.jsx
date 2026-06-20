@@ -7,18 +7,19 @@ import {
   signOut,
   updateProfile,
   signInWithEmailAndPassword,
-  sendEmailVerification, // ✉️ ইমেইল ভেরিফিকেশনের জন্য ইমপোর্ট করা হলো
+  sendEmailVerification,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 
-// ১. সেন্ট্রাল auth ইনস্ট্যান্স তৈরি
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ইমেইল-পাসওয়ার্ড দিয়ে নতুন ইউজার তৈরি
   const createUser = async (email, password) => {
     setLoading(true);
     try {
@@ -34,9 +35,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // ✉️ ইমেইল ভেরিফিকেশন লিঙ্ক পাঠানোর ফাংশন
   const verifyEmail = async (currentUser) => {
-    // যদি প্যারামিটারে ইউজার পাস না করা হয়, তবে কারেন্টলি লগইন থাকা ইউজারকে টার্গেট করবে
     const targetUser = currentUser || auth.currentUser;
     if (!targetUser)
       throw new Error("No authenticated user found to verify email");
@@ -50,7 +49,17 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // ইমেইল-পাসওয়ার্ড দিয়ে লগইন
+  const signInWithGoogle = async () => {
+    setLoading(true);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      return result;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
+  };
+
   const signIn = async (email, password) => {
     setLoading(true);
     try {
@@ -62,7 +71,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // লগআউট
   const logout = async () => {
     setLoading(true);
     try {
@@ -73,7 +81,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // ইউজারের প্রোফাইল (নাম ও ছবি) আপডেট
   const updateUserProfile = async (name, photo) => {
     if (!auth.currentUser) throw new Error("No authenticated user found");
 
@@ -83,7 +90,6 @@ const AuthProvider = ({ children }) => {
         photoURL: photo,
       });
 
-      // ফায়ারবেসের ইন্টারনাল রেফারেন্স ব্রেক করে ফ্রেশ অবজেক্ট স্টেট আপডেট
       const updatedUser = { ...auth.currentUser };
       setUser(updatedUser);
       return true;
@@ -92,7 +98,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // অথেনটিকেশন স্টেট অবজার্ভার
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -102,7 +107,6 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // ⚡ useMemo-তে 'verifyEmail' ফাংশনটি এক্সপোজ করা হয়েছে
   const authInfo = useMemo(
     () => ({
       auth,
@@ -110,10 +114,11 @@ const AuthProvider = ({ children }) => {
       setUser,
       loading,
       createUser,
-      verifyEmail, // 🟢 এখন RegisterPage থেকে সরাসরি এটি কল করা যাবে
+      verifyEmail,
       logout,
       updateUserProfile,
       signIn,
+      signInWithGoogle,
     }),
     [user, loading],
   );
