@@ -120,6 +120,15 @@ const LoginPage = () => {
                 </button>
               </div>
             </form>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/forgot-password");
+              }}
+              className="text-sm mb-2"
+            >
+              Forgot Password
+            </button>
             <GoogleBtn />
 
             <div className="mt-6 text-center">

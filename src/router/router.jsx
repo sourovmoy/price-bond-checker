@@ -22,6 +22,7 @@ import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
 import AllPricebonds from "../Pages/Dashboard/Admin/AllPricebonds";
 import UsersBond from "../Pages/Dashboard/Admin/UsersBond";
 import UploadResult from "../Pages/Dashboard/Admin/UploadResult";
+import ForgotPassword from "../Pages/ForgotPassword";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: "/verify-email",
         element: <VerifyEmailPage />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
       },
     ],
   },

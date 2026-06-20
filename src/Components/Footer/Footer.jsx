@@ -2,6 +2,7 @@ import React from "react";
 import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Logo from "../Shared/Logo/Logo";
 import { Link } from "react-router";
+import { TbWorld } from "react-icons/tb";
 
 const Footer = () => {
   return (
@@ -71,7 +72,7 @@ const Footer = () => {
           </p>
           <div className="flex gap-4">
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/sourovmmoysanju"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
@@ -79,7 +80,7 @@ const Footer = () => {
               <FaFacebook size={18} />
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/sourovmoy"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
@@ -87,7 +88,7 @@ const Footer = () => {
               <FaGithub size={18} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/sourov-dash"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
@@ -95,12 +96,12 @@ const Footer = () => {
               <FaLinkedin size={18} />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://dev-sourov-dash.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
             >
-              <FaTwitter size={18} />
+              <TbWorld size={18} />
             </a>
           </div>
         </div>

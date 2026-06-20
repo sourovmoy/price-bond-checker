@@ -10,6 +10,7 @@ import {
   sendEmailVerification,
   signInWithPopup,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 
@@ -44,8 +45,7 @@ const AuthProvider = ({ children }) => {
       await sendEmailVerification(targetUser);
       return true;
     } catch (error) {
-      console.error("Firebase Email Verification Error:", error);
-      throw error;
+      throw new Error(error.message);
     }
   };
 
@@ -98,6 +98,19 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const forgotPassword = async (email) => {
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      return true;
+    } catch (error) {
+      console.log("error from forgot pass", error.message);
+      throw new Error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -119,6 +132,7 @@ const AuthProvider = ({ children }) => {
       updateUserProfile,
       signIn,
       signInWithGoogle,
+      forgotPassword,
     }),
     [user, loading],
   );
