@@ -33,12 +33,12 @@ const RightNavbar = () => {
   // Logged in
   if (user) {
     return (
-      <div className="flex items-center gap-3">
+      <div className="relative flex items-center gap-3">
         <p className="text-sm font-semibold hidden md:inline">
           Hello, <span className="text-red-400">{firstName}</span>
         </p>
 
-        <div className="relative">
+        <div className="">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="block focus:outline-none"
