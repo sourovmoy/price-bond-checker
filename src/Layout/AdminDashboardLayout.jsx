@@ -36,11 +36,7 @@ const AdminDashboardLayout = () => {
           </span>
 
           {/* Right side */}
-          <div className="flex items-center gap-3 ml-auto">
-            <button className="relative text-gray-500 hover:text-[#244B43] transition-colors">
-              <FiBell size={20} />
-              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full" />
-            </button>
+          <div className="flex items-center ml-auto">
             <div className="w-8 h-8 rounded-full bg-[#244B43]/10 flex items-center justify-center">
               {loading ? (
                 <RiAdminFill size={15} className="text-[#244B43]" />

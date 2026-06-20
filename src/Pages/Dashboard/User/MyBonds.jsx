@@ -4,12 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import MyBondsSkeleton from "../../../Components/Skeleton/MyBondsSkeleton";
+import Swal from "sweetalert2";
 
 const MyBonds = () => {
   const axios = useAxiosSecure();
   const { user, loading } = useAuth();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["myBonds", user?.email],
     enabled: !loading && !!user?.email,
     queryFn: async () => {
@@ -46,6 +47,39 @@ const MyBonds = () => {
     });
   };
 
+  const handleDelete = async (bondNumber) => {
+    const result = await Swal.fire({
+      title: "আপনি কি নিশ্চিত?",
+      text: "এই কাজটি পরে আর ফিরিয়ে আনা যাবে না!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "হ্যাঁ, মুছে ফেলো!",
+      cancelButtonText: "না, বাতিল করো!",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      const encoded = encodeURIComponent(bondNumber);
+      await axios.delete(`/delete-bond/${encoded}`);
+
+      Swal.fire({
+        title: "মুছে ফেলা হয়েছে!",
+        text: "বন্ড সফলভাবে মুছে ফেলা হয়েছে!",
+        icon: "success",
+      });
+
+      refetch();
+    } catch (error) {
+      Swal.fire({
+        title: "ব্যর্থ হয়েছে!",
+        text: "বন্ড মুছতে সমস্যা হয়েছে। আবার চেষ্টা করুন।",
+        icon: "error",
+      });
+    }
+  };
   if (isLoading) return <MyBondsSkeleton />;
 
   if (bonds.length === 0) {
@@ -96,12 +130,7 @@ const MyBonds = () => {
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-2">
                       <button
-                        className="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 transition-colors"
-                        title="সম্পাদনা"
-                      >
-                        <FiEdit2 size={15} />
-                      </button>
-                      <button
+                        onClick={() => handleDelete(bond.number)}
                         className="p-1.5 rounded-lg text-red-400 hover:bg-red-50 transition-colors"
                         title="মুছুন"
                       >

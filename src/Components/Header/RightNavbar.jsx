@@ -3,6 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import { Link } from "react-router";
 import userIcon from "../../assets/user.jpg";
 import UserModal from "../Modal/UserModal/UserModal";
+import DashboardNotification from "../Notification/User/DashboardNotification";
 
 // ─── Skeleton ───────────────────────────────────────────────
 const NavSkeleton = () => (
@@ -50,7 +51,7 @@ const RightNavbar = () => {
           </button>
           <UserModal isOpen={isOpen} setIsOpen={setIsOpen} user={user} />
         </div>
-
+        <DashboardNotification />
         <button onClick={logout} className="btn hidden md:inline">
           Sign out
         </button>
