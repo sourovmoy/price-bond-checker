@@ -27,7 +27,7 @@ const DashboardNotification = () => {
   if (!user) return null;
 
   return (
-    <div className="relative">
+    <div className="r">
       <button
         ref={buttonRef}
         onClick={handleBellClick}

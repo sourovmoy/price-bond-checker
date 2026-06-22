@@ -37,7 +37,7 @@ const RightNavbar = () => {
         <p className="text-sm font-semibold hidden md:inline">
           Hello, <span className="text-red-400">{firstName}</span>
         </p>
-
+        <DashboardNotification />
         <div className="">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -51,7 +51,6 @@ const RightNavbar = () => {
           </button>
           <UserModal isOpen={isOpen} setIsOpen={setIsOpen} user={user} />
         </div>
-        <DashboardNotification />
         <button onClick={logout} className="btn hidden md:inline">
           Sign out
         </button>

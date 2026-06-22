@@ -28,7 +28,6 @@ const ForgotPassword = () => {
       setTimeout(() => navigate("/login"), 3000);
       navigate("/login");
     } catch (error) {
-      console.log(error.message);
       toast.error(
         getFirebaseErrorMessage(error) || "রিসেট ইমেইল পাঠাতে ব্যর্থ হয়েছে।",
       );

@@ -49,7 +49,7 @@ const DashBoardLayout = () => {
           </span>
 
           {/* Right side */}
-          <div className="flex items-center gap-3 ml-auto">
+          <div className="relative flex items-center gap-3 ml-auto">
             <DashboardNotification />
             <div className="w-8 h-8 rounded-full bg-[#244B43]/10 flex items-center justify-center">
               {loading ? (

@@ -104,7 +104,6 @@ const AuthProvider = ({ children }) => {
       await sendPasswordResetEmail(auth, email);
       return true;
     } catch (error) {
-      console.log("error from forgot pass", error.message);
       throw new Error(error.message);
     } finally {
       setLoading(false);
