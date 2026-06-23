@@ -13,6 +13,7 @@ import { FaBackspace } from "react-icons/fa";
 import Logo from "../Shared/Logo/Logo";
 import useRole from "../../Hooks/useRole";
 import SidebarSkeleton from "../Skeleton/SidebarSkeleton";
+import { RiCoupon3Line } from "react-icons/ri";
 
 const Sidebar = ({ open, onClose }) => {
   const { user, logout, loading } = useAuth();
@@ -30,6 +31,11 @@ const Sidebar = ({ open, onClose }) => {
       to: "/dashboard/my-price-bonds",
       icon: <FiFileText />,
       label: "আমার বন্ড",
+    },
+    {
+      to: "/add-price-bond",
+      icon: <RiCoupon3Line />,
+      label: "বন্ড যোগ করুন",
     },
     { to: "/", icon: <FaBackspace />, label: "হোম" },
   ];

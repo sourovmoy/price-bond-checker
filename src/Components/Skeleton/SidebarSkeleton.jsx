@@ -20,7 +20,7 @@ const SidebarSkeleton = () => {
 
       {/* Nav skeleton */}
       <nav className="flex-1 px-3 py-4 space-y-1">
-        {[...Array(4)].map((_, i) => (
+        {[...Array(5)].map((_, i) => (
           <div
             key={i}
             className="h-10 w-full rounded-lg bg-white/10 animate-pulse"

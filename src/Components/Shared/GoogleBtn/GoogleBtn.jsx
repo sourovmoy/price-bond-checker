@@ -63,8 +63,6 @@ const GoogleBtn = () => {
     try {
       const userCredential = await signInWithGoogle();
       const firebaseUser = userCredential.user;
-      console.log(firebaseUser.photoURL);
-
       await verifyEmail(firebaseUser);
       const newUser = {
         name: firebaseUser?.displayName,
