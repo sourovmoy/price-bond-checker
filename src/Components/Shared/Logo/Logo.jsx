@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <Link to={"/"}>
       <h1 className="text-xl md:text-2xl font-bold">
-        <span className="text-green-500">Price Bond</span> Checker
+        <span className="text-green-500">Prize Bond</span> Checker
       </h1>
     </Link>
   );

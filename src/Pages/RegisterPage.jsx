@@ -96,15 +96,21 @@ const RegisterPage = () => {
       const userCredential = await createUser(email, password);
       const firebaseUser = userCredential.user;
 
-      await verifyEmail(firebaseUser);
       await updateUserProfile(name, uploadedImageUrl);
+      await verifyEmail(firebaseUser);
+      await firebaseUser.getIdToken(true);
 
       const newUser = {
         name,
         phone: formattedPhone,
         imageUrl: uploadedImageUrl,
       };
-      await axios.post("/user", newUser);
+      try {
+        await axios.post("/user", newUser);
+      } catch (err) {
+        console.error("User save failed:", err.response?.data || err.message);
+      }
+
       setIsWaitingForVerify(true);
     } catch (error) {
       toast.error(

@@ -20,6 +20,7 @@ const NavSkeleton = () => (
 // ─── Main Component ─────────────────────────────────────────
 const RightNavbar = () => {
   const { user, logout, loading } = useAuth();
+  console.log(user);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,6 +48,7 @@ const RightNavbar = () => {
               className="w-10 h-10 rounded-full border-2 border-gray-300 object-cover hover:scale-105 transition"
               src={user?.photoURL}
               alt="User"
+              referrerPolicy="no-referrer"
             />
           </button>
           <UserModal isOpen={isOpen} setIsOpen={setIsOpen} user={user} />
