@@ -5,11 +5,13 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
 import Loading from "../Components/Loading/Loading";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddPriceBond = () => {
   const axios = useAxiosSecure();
   const { loading } = useAuth();
   const [spinner, setSpinner] = useState(false);
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -27,17 +29,12 @@ const AddPriceBond = () => {
         ...data,
       };
       const res = await axios.post("/add-price-bond", priceBondInfo);
+      toast.success(res?.data?.message);
 
-      if (
-        res?.data?.result?.insertedId ||
-        res?.data?.result?.modifiedCount > 0 ||
-        res?.data?.result?.upsertedCount > 0
-      ) {
-        toast.success("সফলভাবে আপনার ড্যাশবোর্ডে যুক্ত হয়েছে!");
-        reset();
-      } else {
-        toast.error("যুক্ত করা যায়নি / বন্ডটি অলরেডি আপনার তালিকায় আছে");
+      if (res?.data?.isWinner) {
+        queryClient.invalidateQueries({ queryKey: ["notifications"] });
       }
+      reset();
     } catch (error) {
       toast.error(
         error.response?.data?.message || "বন্ড যুক্ত করতে ব্যর্থ হয়েছেন",

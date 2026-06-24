@@ -17,6 +17,7 @@ const useNotifications = () => {
       return lastPage.hasMore ? allPages.length + 1 : undefined;
     },
     refetchOnWindowFocus: false,
+    staleTime: 0,
   });
 };
 

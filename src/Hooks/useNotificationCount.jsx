@@ -15,6 +15,7 @@ const useNotificationCount = () => {
       return res.data.count;
     },
     refetchOnWindowFocus: false,
+    refetchInterval: 2000,
   });
 };
 
