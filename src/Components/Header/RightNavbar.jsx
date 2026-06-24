@@ -20,7 +20,6 @@ const NavSkeleton = () => (
 // ─── Main Component ─────────────────────────────────────────
 const RightNavbar = () => {
   const { user, logout, loading } = useAuth();
-  console.log(user);
 
   const [isOpen, setIsOpen] = useState(false);
 

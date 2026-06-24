@@ -44,7 +44,7 @@ const LoginPage = () => {
     <Container>
       <div className="flex flex-col items-center justify-center hover:pointer-coarse">
         <div className="flex mt-3 md:mt-5 mb-3">
-          <div className="w-full max-w-md p-8 border border-gray-100 rounded-lg shadow-md">
+          <div className="w-full max-w-md p-5 border border-gray-100 rounded-lg shadow-md">
             <h2 className="mb-6 text-3xl font-semibold text-gray-900">
               আপনার অ্যাকাউন্টে প্রবেশ করুন
             </h2>
