@@ -23,6 +23,8 @@ import AllPricebonds from "../Pages/Dashboard/Admin/AllPricebonds";
 import UsersBond from "../Pages/Dashboard/Admin/UsersBond";
 import UploadResult from "../Pages/Dashboard/Admin/UploadResult";
 import ForgotPassword from "../Pages/ForgotPassword";
+import DrawResults from "../Pages/DrawResults";
+import SingleDraw from "../Pages/SingleDraw";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +64,14 @@ export const router = createBrowserRouter([
       {
         path: "/forgot-password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "/draw-results",
+        element: <DrawResults />,
+      },
+      {
+        path: "/draw-result/:id",
+        element: <SingleDraw />,
       },
     ],
   },

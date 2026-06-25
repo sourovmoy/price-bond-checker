@@ -42,7 +42,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://www.bb.org.bd/en/index.php/Investfacility/prizebond"
+                  href="/draw-results"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-emerald-400 transition-colors duration-200"

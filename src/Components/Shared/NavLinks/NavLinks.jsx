@@ -25,6 +25,13 @@ const NavLinks = ({ setIsMenuModalOpen }) => {
       >
         About
       </NavLink>
+      <NavLink
+        onClick={() => setIsMenuModalOpen(false)}
+        className={"font-semibold hover:text-gray-500 cursor-pointer"}
+        to={"/draw-results"}
+      >
+        Draw Results
+      </NavLink>
     </div>
   );
 };
