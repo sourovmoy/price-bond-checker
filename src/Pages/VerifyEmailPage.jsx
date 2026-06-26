@@ -43,7 +43,7 @@ const VerifyEmailPage = () => {
           navigate("/", { replace: true });
         }
       } catch (err) {
-        console.error("Polling error:", err);
+        // console.error("Polling error:", err);
       }
     }, 3000);
 

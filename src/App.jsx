@@ -20,7 +20,7 @@ function App() {
       const result = text.match(/\d{7}/g);
       setMyTexts1(result);
     } catch (error) {
-      console.error("Failed to read PDF:", error);
+      // console.error("Failed to read PDF:", error);
     }
   };
   const handleFileChange2 = async (e) => {
@@ -37,14 +37,14 @@ function App() {
       const result = text.match(/\d{7}/g);
       setMyTexts2(result);
     } catch (error) {
-      console.error("Failed to read PDF:", error);
+      // console.error("Failed to read PDF:", error);
     }
   };
   const fn = () => {
-    console.log(myText1, myText2);
+    // console.log(myText1, myText2);
 
     const match = myText1.filter((num) => myText2.includes(num));
-    console.log(match);
+    // console.log(match);
 
     setMatch(match);
     if (match.length > 0) {

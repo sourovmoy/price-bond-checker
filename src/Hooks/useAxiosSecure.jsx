@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use(
         }
       }
     } catch (error) {
-      console.error("Error getting Firebase token:", error);
+      // console.error("Error getting Firebase token:", error);
     }
     return config;
   },
@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const status = error.response?.status;
     if (status === 401 || status === 403) {
-      console.warn("Unauthorized - status:", status);
+      // console.warn("Unauthorized - status:", status);
     }
     return Promise.reject(error);
   },

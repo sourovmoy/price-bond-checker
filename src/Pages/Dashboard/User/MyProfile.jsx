@@ -57,7 +57,7 @@ const MyProfile = () => {
       queryClient.invalidateQueries({ queryKey: ["my-profile", user?.email] });
     },
     onError: (error) => {
-      console.error(error);
+      // console.error(error);
       toast.error("প্রোফাইল আপডেট ব্যর্থ হয়েছে!");
     },
   });
@@ -94,7 +94,7 @@ const MyProfile = () => {
         phone: formattedPhone,
       });
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
 
       toast.error("ছবি আপলোড বা ফায়ারবেস আপডেটে সমস্যা হয়েছে!");
     }

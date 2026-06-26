@@ -32,7 +32,7 @@ const GoogleBtn = () => {
             navigate("/");
           }
         } catch (error) {
-          console.log(error.message);
+          // console.log(error.message);
         }
       }, 5000);
     }
@@ -72,7 +72,7 @@ const GoogleBtn = () => {
       await axios.post("/user", newUser);
       setIsWaitingForVerify(true);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       toast.error(
         getFirebaseErrorMessage(error) ||
           error.message ||

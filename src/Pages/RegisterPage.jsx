@@ -108,7 +108,7 @@ const RegisterPage = () => {
       try {
         await axios.post("/user", newUser);
       } catch (err) {
-        console.error("User save failed:", err.response?.data || err.message);
+        // console.error("User save failed:", err.response?.data || err.message);
       }
 
       setIsWaitingForVerify(true);
