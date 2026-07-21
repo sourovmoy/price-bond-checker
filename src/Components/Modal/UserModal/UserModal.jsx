@@ -74,7 +74,7 @@ export default function UserModal({ setIsOpen, isOpen }) {
         }}
         className="mt-4 w-full flex items-center justify-center gap-2 btn"
       >
-        <HiOutlineLogout /> Log Out
+        <HiOutlineLogout /> Sign Out
       </button>
     </div>
   );

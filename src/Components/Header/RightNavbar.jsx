@@ -20,7 +20,6 @@ const NavSkeleton = () => (
 // ─── Main Component ─────────────────────────────────────────
 const RightNavbar = () => {
   const { user, logout, loading } = useAuth();
-
   const [isOpen, setIsOpen] = useState(false);
 
   const firstName = user?.displayName
