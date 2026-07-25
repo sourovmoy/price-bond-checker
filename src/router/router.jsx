@@ -25,6 +25,7 @@ import UploadResult from "../Pages/Dashboard/Admin/UploadResult";
 import ForgotPassword from "../Pages/ForgotPassword";
 import DrawResults from "../Pages/DrawResults";
 import SingleDraw from "../Pages/SingleDraw";
+import Users from "../Pages/Dashboard/Admin/Users";
 
 export const router = createBrowserRouter([
   {
@@ -132,6 +133,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/upload-result",
         element: <UploadResult />,
+      },
+      {
+        path: "/dashboard/admin/users-collection",
+        element: <Users />,
       },
     ],
   },

@@ -5,6 +5,7 @@ import { FiUsers, FiAward, FiXCircle, FiClock } from "react-icons/fi";
 import { TbCurrencyTaka } from "react-icons/tb";
 import AdminBarChart from "../../../Components/Charts/AdminBarChart";
 import AdminOverviewSkeleton from "../../../Components/Skeleton/AdminOverviewSkeleton";
+import { Link } from "react-router";
 
 const AdminDashBoard = () => {
   const axios = useAxiosSecure();
@@ -23,7 +24,6 @@ const AdminDashBoard = () => {
     totalUsers = 0,
     totalWon = 0,
     totalLost = 0,
-    totalPending = 0,
     totalValue = 0,
     users = [],
     chartData = [],
@@ -36,6 +36,7 @@ const AdminDashBoard = () => {
       icon: <FiUsers />,
       bg: "bg-blue-50",
       text: "text-blue-600",
+      route: "/dashboard/admin/users-collection",
     },
     {
       label: "মোট বন্ড মূল্য",
@@ -43,6 +44,7 @@ const AdminDashBoard = () => {
       icon: <TbCurrencyTaka />,
       bg: "bg-green-50",
       text: "text-green-600",
+      route: "/dashboard/admin/all-bonds",
     },
     {
       label: "মোট বিজয়ী",
@@ -50,6 +52,7 @@ const AdminDashBoard = () => {
       icon: <FiAward />,
       bg: "bg-yellow-50",
       text: "text-yellow-600",
+      route: "#",
     },
     {
       label: "মোট মেলেনি",
@@ -57,13 +60,7 @@ const AdminDashBoard = () => {
       icon: <FiXCircle />,
       bg: "bg-red-50",
       text: "text-red-500",
-    },
-    {
-      label: "অপেক্ষমান",
-      value: totalPending,
-      icon: <FiClock />,
-      bg: "bg-gray-50",
-      text: "text-gray-500",
+      route: "#",
     },
   ];
 
@@ -84,8 +81,9 @@ const AdminDashBoard = () => {
       {/* Stat Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         {stats.map((stat, i) => (
-          <div
+          <Link
             key={i}
+            to={stat.route}
             className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 flex flex-col gap-3"
           >
             <div
@@ -97,7 +95,7 @@ const AdminDashBoard = () => {
               <p className="text-xs text-gray-400">{stat.label}</p>
               <p className={`text-xl font-bold ${stat.text}`}>{stat.value}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

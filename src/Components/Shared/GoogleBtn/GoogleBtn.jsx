@@ -11,7 +11,7 @@ import { MdEmail, MdRefresh } from "react-icons/md";
 import { AiOutlineLoading } from "react-icons/ai";
 
 const GoogleBtn = () => {
-  const { signInWithGoogle, loading, user } = useAuth();
+  const { signInWithGoogle, loading } = useAuth();
   const axios = useAxiosSecure();
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
@@ -21,11 +21,13 @@ const GoogleBtn = () => {
     try {
       const userCredential = await signInWithGoogle();
       const firebaseUser = userCredential.user;
+
       const newUser = {
         name: firebaseUser?.displayName,
-        phone: null,
-        imageUrl: firebaseUser?.photoURL || user?.photoURL,
+        photoURL: firebaseUser?.photoURL,
+        phone: firebaseUser?.phoneNumber,
       };
+
       await axios.post("/user", newUser);
       navigate("/");
     } catch (error) {
