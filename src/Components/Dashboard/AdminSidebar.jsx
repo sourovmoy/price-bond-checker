@@ -7,6 +7,8 @@ import useRole from "../../Hooks/useRole";
 import Logo from "../Shared/Logo/Logo";
 import { SlDocs } from "react-icons/sl";
 import { GrDocumentPdf } from "react-icons/gr";
+import { FaUsersLine } from "react-icons/fa6";
+import SidebarSkeleton from "../Skeleton/SidebarSkeleton";
 
 const AdminSidebar = ({ open, onClose }) => {
   const { user, logout, loading } = useAuth();
@@ -29,6 +31,11 @@ const AdminSidebar = ({ open, onClose }) => {
       to: "/dashboard/admin/all-bonds",
       icon: <SlDocs />,
       label: "বন্ডসমূহ",
+    },
+    {
+      to: "/dashboard/admin/users-collection",
+      icon: <FaUsersLine />,
+      label: "ইউজারসমূহ",
     },
     {
       to: "/dashboard/admin/upload-result",
