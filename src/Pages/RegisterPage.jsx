@@ -103,7 +103,7 @@ const RegisterPage = () => {
       const newUser = {
         name,
         phone: formattedPhone,
-        imageUrl: uploadedImageUrl,
+        photoURL: uploadedImageUrl,
       };
       try {
         await axios.post("/user", newUser);
