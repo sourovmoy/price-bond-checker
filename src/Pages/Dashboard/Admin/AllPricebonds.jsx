@@ -67,9 +67,9 @@ const AllPricebonds = () => {
             <div>
               {/* ছবি এবং নাম */}
               <div className="flex items-center gap-3.5 pb-4 border-b border-gray-50">
-                {user.imageUrl ? (
+                {user.photoURL ? (
                   <img
-                    src={user.imageUrl}
+                    src={user.photoURL}
                     alt={user.name}
                     className="w-12 h-12 rounded-full object-cover ring-2 ring-gray-100 shrink-0"
                   />

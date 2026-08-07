@@ -93,7 +93,7 @@ const Users = () => {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {users?.map((user) => {
-              const imageSrc = user?.imageUrl;
+              const imageSrc = user?.photoURL;
 
               return (
                 <tr

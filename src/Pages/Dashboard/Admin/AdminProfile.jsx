@@ -53,7 +53,7 @@ const AdminProfile = () => {
       await updateUserProfile(data.name, photoURL);
       await axios.patch("/user/update-profile", {
         name: data.name,
-        imageUrl: photoURL,
+        photoURL,
       });
       toast.success("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
     } catch (error) {

@@ -38,8 +38,8 @@ const MyProfile = () => {
     if (dbUser) {
       setValue("name", dbUser.name || user?.displayName || "");
       setValue("phone", dbUser.phone || "");
-      if (dbUser.imageUrl) {
-        setPreview(dbUser.imageUrl);
+      if (dbUser.photoURL) {
+        setPreview(dbUser.photoURL);
       }
     }
   }, [dbUser, user, setValue]);
@@ -90,7 +90,7 @@ const MyProfile = () => {
       // ✅ React Query Mutation ট্রিগার করা হচ্ছে
       profileMutation.mutate({
         name: data.name,
-        imageUrl: photoURL,
+        photoURL,
         phone: formattedPhone,
       });
     } catch (error) {
