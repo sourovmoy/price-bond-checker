@@ -39,7 +39,7 @@ const Users = () => {
       if (res.data.result.acknowledged || res.data.result2.acknowledged) {
         Swal.fire({
           title: "মুছে ফেলা হয়েছে!",
-          text: "বন্ড সফলভাবে মুছে ফেলা হয়েছে!",
+          text: "সফলভাবে মুছে ফেলা হয়েছে!",
           icon: "success",
         });
       }

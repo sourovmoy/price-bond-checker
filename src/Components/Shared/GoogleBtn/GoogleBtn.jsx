@@ -31,7 +31,7 @@ const GoogleBtn = () => {
       await axios.post("/user", newUser);
       navigate("/");
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       toast.error(
         getFirebaseErrorMessage(error) ||
           error.message ||
