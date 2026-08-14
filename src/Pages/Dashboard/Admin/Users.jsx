@@ -21,7 +21,7 @@ const Users = () => {
     },
   });
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (email) => {
     const result = await Swal.fire({
       title: "আপনি কি নিশ্চিত?",
       text: "এই কাজটি পরে আর ফিরিয়ে আনা যাবে না!",
@@ -35,8 +35,8 @@ const Users = () => {
 
     if (!result.isConfirmed) return;
     try {
-      const res = await axios.delete(`/delete-user/${id}`);
-      if (res.data.result.acknowledged) {
+      const res = await axios.delete(`/delete-user/${email}`);
+      if (res.data.result.acknowledged || res.data.result2.acknowledged) {
         Swal.fire({
           title: "মুছে ফেলা হয়েছে!",
           text: "বন্ড সফলভাবে মুছে ফেলা হয়েছে!",
@@ -45,7 +45,6 @@ const Users = () => {
       }
       refetch();
     } catch (error) {
-      console.log(error.massage);
       Swal.fire({
         title: "ব্যর্থ হয়েছে!",
         text: "বন্ড মুছতে সমস্যা হয়েছে। আবার চেষ্টা করুন।",
@@ -134,7 +133,7 @@ const Users = () => {
                   <td className="px-2 py-1">
                     <div className="flex items-center justify-center gap-2">
                       <button
-                        onClick={() => handleDelete(user._id)}
+                        onClick={() => handleDelete(user.email)}
                         className="p-1.5 rounded-lg text-red-400 hover:bg-red-50 transition-colors"
                         title="মুছুন"
                       >
