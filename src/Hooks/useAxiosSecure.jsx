@@ -6,11 +6,11 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-// ✅ Interceptor একবারই register করো — hook এর বাইরে
 axiosInstance.interceptors.request.use(
   async (config) => {
     try {
       const auth = getAuth();
+      await auth.authStateReady();
       const currentUser = auth.currentUser;
       if (currentUser && typeof currentUser.getIdToken === "function") {
         const token = await currentUser.getIdToken();
