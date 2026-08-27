@@ -5,7 +5,7 @@ const AllPricebondsSkeleton = () => {
   const skeletonCards = Array.from({ length: 8 });
 
   return (
-    <div className="p-4 sm:p-6 bg-gray-50/50 min-h-screen">
+    <div className="bg-gray-50/50">
       {/* হেডার সেকশন স্কেলিটন */}
       <div className="mb-6 space-y-2 animate-pulse">
         <div className="h-6 w-56 bg-gray-200 rounded-lg" />

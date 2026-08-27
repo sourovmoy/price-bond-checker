@@ -2,7 +2,7 @@ import React from "react";
 
 const MyBondsSkeleton = () => {
   return (
-    <div className="p-4 sm:p-6">
+    <div className="">
       {/* Header skeleton */}
       <div className="mb-5 space-y-2">
         <div className="h-5 w-36 rounded bg-gray-200 animate-pulse" />

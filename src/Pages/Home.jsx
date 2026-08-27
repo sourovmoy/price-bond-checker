@@ -27,7 +27,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/40 pb-12">
+    <div className="bg-slate-50/40 pb-12">
       {/* 1. Main Upper Banner */}
       <Banner />
 

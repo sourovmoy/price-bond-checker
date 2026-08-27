@@ -44,7 +44,7 @@ const AllPricebonds = () => {
   }
 
   return (
-    <div className="bg-gray-50/50 min-h-screen">
+    <div className="bg-gray-50/50">
       {/* হেডার সেকশন */}
       <div className="mb-6">
         <h1 className="text-xl sm:text-2xl font-bold text-gray-800">

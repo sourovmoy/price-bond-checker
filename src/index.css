@@ -11,7 +11,7 @@ button {
 }
 
 .active {
-  @apply scale-102 text-gray-500;
+  @apply scale-102 text-gray-400;
 }
 
 /* .btn {

@@ -80,14 +80,6 @@ const Footer = () => {
               <FaFacebook size={18} />
             </a>
             <a
-              href="https://github.com/sourovmoy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
-            >
-              <FaGithub size={18} />
-            </a>
-            <a
               href="https://www.linkedin.com/in/sourov-dash"
               target="_blank"
               rel="noopener noreferrer"

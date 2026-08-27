@@ -15,7 +15,7 @@ import DevImg from "../assets/sourov-dash .png";
 const About = () => {
   return (
     <Container>
-      <div className="w-full py-10 px-4 animate-fadeIn">
+      <div className="w-full py-10 animate-fadeIn">
         {/* হেডার সেকশন */}
         <div className="text-center mb-12">
           <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">
