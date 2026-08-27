@@ -57,7 +57,7 @@ const UsersBond = () => {
   }
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="">
       <div className="mb-5">
         <h1 className="text-xl font-semibold text-gray-800">
           {data?.result?.name} বন্ডসমূহ

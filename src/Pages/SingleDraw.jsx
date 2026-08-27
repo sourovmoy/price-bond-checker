@@ -84,7 +84,7 @@ const SingleDraw = () => {
 
   return (
     <Container>
-      <div className="max-w-4xl mx-auto py-8 px-2 md:px-4">
+      <div className="py-8">
         <div className="bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 mb-4 shadow-sm">
           <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
             <div>
@@ -188,12 +188,12 @@ const SingleDraw = () => {
                   </span>
                 </div>
 
-                <div className="px-4 sm:px-5 py-4">
+                <div className="px-2 sm:px-5 py-4">
                   <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
                     {prize.numbers.map((num) => (
                       <span
                         key={num}
-                        className={`font-mono text-xs sm:text-sm font-bold text-center px-2 py-2 rounded-xl border tracking-widest ${s.num}`}
+                        className={`font-mono text-[11px] sm:text-sm font-bold text-center px-1 py-2 rounded-xl border tracking-widest ${s.num}`}
                       >
                         {num}
                       </span>

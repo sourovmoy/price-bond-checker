@@ -25,7 +25,6 @@ const UserDashboard = () => {
   const {
     total = 0,
     won = 0,
-    lost = 0,
     pending = 0,
     totalValue = 0,
     monthlyData = [],
@@ -59,13 +58,6 @@ const UserDashboard = () => {
       text: "text-yellow-600",
     },
     {
-      label: "মেলেনি",
-      value: lost,
-      icon: <FiXCircle />,
-      bg: "bg-red-50",
-      text: "text-red-500",
-    },
-    {
       label: "অপেক্ষমান",
       value: pending,
       icon: <FiClock />,
@@ -77,7 +69,7 @@ const UserDashboard = () => {
   if (isLoading) return <UserOverviewSkeleton />;
 
   return (
-    <div className="p-4 sm:p-6 space-y-6">
+    <div className="space-y-6">
       {/* Greeting */}
       <div>
         <h1 className="text-xl font-semibold text-gray-800">
@@ -132,7 +124,6 @@ const UserDashboard = () => {
 
           {[
             { label: "বিজয়ী", count: won, color: "bg-green-500" },
-            { label: "মেলেনি", count: lost, color: "bg-red-400" },
             { label: "অপেক্ষমান", count: pending, color: "bg-yellow-400" },
           ].map((item, i) => (
             <div key={i} className="space-y-1">
