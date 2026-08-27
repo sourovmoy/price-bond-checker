@@ -23,7 +23,7 @@ const AdminDashBoard = () => {
   const {
     totalUsers = 0,
     totalWon = 0,
-    totalLost = 0,
+    totalPending = 0,
     totalValue = 0,
     users = [],
     chartData = [],
@@ -55,8 +55,8 @@ const AdminDashBoard = () => {
       route: "#",
     },
     {
-      label: "মোট মেলেনি",
-      value: totalLost,
+      label: "মোট অপেক্ষমান",
+      value: totalPending,
       icon: <FiXCircle />,
       bg: "bg-red-50",
       text: "text-red-500",
@@ -124,7 +124,6 @@ const AdminDashBoard = () => {
                 <th className="px-4 py-3 text-left">ইমেইল</th>
                 <th className="px-4 py-3 text-center">মোট বন্ড</th>
                 <th className="px-4 py-3 text-center">বিজয়ী</th>
-                <th className="px-4 py-3 text-center">মেলেনি</th>
                 <th className="px-4 py-3 text-center">অপেক্ষমান</th>
               </tr>
             </thead>
@@ -147,9 +146,6 @@ const AdminDashBoard = () => {
                   <td className="px-4 py-3 text-center text-green-600 font-medium">
                     {u.won}
                   </td>
-                  <td className="px-4 py-3 text-center text-red-500 font-medium">
-                    {u.lost}
-                  </td>
                   <td className="px-4 py-3 text-center text-yellow-600 font-medium">
                     {u.pending}
                   </td>
@@ -168,9 +164,6 @@ const AdminDashBoard = () => {
                 </td>
                 <td className="px-4 py-3 text-center text-green-700">
                   {users.reduce((sum, u) => sum + u.won, 0)}
-                </td>
-                <td className="px-4 py-3 text-center text-red-600">
-                  {users.reduce((sum, u) => sum + u.lost, 0)}
                 </td>
                 <td className="px-4 py-3 text-center text-yellow-700">
                   {users.reduce((sum, u) => sum + u.pending, 0)}
