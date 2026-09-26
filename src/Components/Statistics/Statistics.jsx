@@ -74,8 +74,11 @@ const Statistics = () => {
                 </p>
                 <h3 className="mt-1 text-3xl font-bold text-gray-800">
                   <CountUp
+                    start={0}
                     end={item.value}
-                    duration={2}
+                    duration={2.5}
+                    enableScrollSpy
+                    scrollSpyDelay={200}
                     formattingFn={(val) =>
                       val
                         .toString()

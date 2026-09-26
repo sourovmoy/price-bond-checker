@@ -26,6 +26,7 @@ import ForgotPassword from "../Pages/ForgotPassword";
 import DrawResults from "../Pages/DrawResults";
 import SingleDraw from "../Pages/SingleDraw";
 import Users from "../Pages/Dashboard/Admin/Users";
+import WinningBonds from "../Pages/Dashboard/Admin/WinningBonds";
 
 export const router = createBrowserRouter([
   {
@@ -137,6 +138,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/admin/users-collection",
         element: <Users />,
+      },
+      {
+        path: "/dashboard/admin/wins-bonds-collection",
+        element: <WinningBonds />,
       },
     ],
   },

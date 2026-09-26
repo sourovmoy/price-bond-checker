@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, NavLink, useNavigate } from "react-router";
-import { FiHome, FiLogOut, FiSettings, FiUser, FiX } from "react-icons/fi";
-import { FaBackspace } from "react-icons/fa";
+import { FiHome, FiLogOut, FiUser, FiX } from "react-icons/fi";
+import { FaBackspace, FaTrophy } from "react-icons/fa";
 import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 import Logo from "../Shared/Logo/Logo";
@@ -31,6 +31,11 @@ const AdminSidebar = ({ open, onClose }) => {
       to: "/dashboard/admin/all-bonds",
       icon: <SlDocs />,
       label: "বন্ডসমূহ",
+    },
+    {
+      to: "/dashboard/admin/wins-bonds-collection",
+      icon: <FaTrophy />,
+      label: "বিজয়ী বন্ডসমূহ",
     },
     {
       to: "/dashboard/admin/users-collection",
