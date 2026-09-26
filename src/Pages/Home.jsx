@@ -6,6 +6,7 @@ import HowToBuy from "../Components/Home/BannerLinks/HowToBuy";
 import DrawAndPrizes from "../Components/Home/BannerLinks/DrawAndPrice";
 import BannerLinks from "../Components/Home/BannerLinks/BannerLinks";
 import FAQ from "../Components/Home/FAQ/FAQ";
+import Statistics from "../Components/Statistics/Statistics";
 // 🔥 Import BannerLinks and all Bangla content components
 
 const Home = () => {
@@ -39,6 +40,8 @@ const Home = () => {
         {renderTabContent()}
       </div>
       <FAQ />
+
+      <Statistics />
     </div>
   );
 };

@@ -32,7 +32,7 @@ const AdminDashBoard = () => {
   const stats = [
     {
       label: "মোট ইউজার",
-      value: totalUsers,
+      value: `৳${totalUsers.toLocaleString("bn-BD")}`,
       icon: <FiUsers />,
       bg: "bg-blue-50",
       text: "text-blue-600",
@@ -48,7 +48,7 @@ const AdminDashBoard = () => {
     },
     {
       label: "মোট বিজয়ী",
-      value: totalWon,
+      value: `৳${totalWon.toLocaleString("bn-BD")}`,
       icon: <FiAward />,
       bg: "bg-yellow-50",
       text: "text-yellow-600",
@@ -56,7 +56,7 @@ const AdminDashBoard = () => {
     },
     {
       label: "মোট অপেক্ষমান",
-      value: totalPending,
+      value: `৳${totalPending.toLocaleString("bn-BD")}`,
       icon: <FiXCircle />,
       bg: "bg-red-50",
       text: "text-red-500",
@@ -153,7 +153,6 @@ const AdminDashBoard = () => {
               ))}
             </tbody>
 
-            {/* ✅ Footer — total summary */}
             <tfoot>
               <tr className="bg-gray-50 border-t-2 border-gray-200 font-semibold">
                 <td className="px-4 py-3" colSpan={3}>

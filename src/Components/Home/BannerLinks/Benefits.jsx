@@ -3,7 +3,7 @@ import { LuGem, LuScale, LuCalendarHeart, LuTrophy } from "react-icons/lu";
 
 const Benefits = () => {
   return (
-    <div className="w-full max-w-5xl mx-auto py-8 px-4 animate-fadeIn">
+    <div className="w-full max-w-7xl mx-auto py-8 px-4 animate-fadeIn">
       <div className="p-6">
         {/* টাইটেল সেকশন: এখানে 💎 এর বদলে LuGem আইকন ব্যবহার করা হয়েছে */}
         <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2.5">

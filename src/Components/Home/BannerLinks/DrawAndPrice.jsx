@@ -3,7 +3,7 @@ import { FaCalendarAlt, FaTrophy, FaCalendarCheck } from "react-icons/fa";
 
 const DrawAndPrizes = () => {
   return (
-    <div className="w-full max-w-5xl mx-auto py-8 px-4 animate-fadeIn">
+    <div className="w-full max-w-7xl mx-auto py-8 px-4 animate-fadeIn">
       <div className="p-6">
         {/* 🎉 ইমোজি সরিয়ে FaCalendarAlt আইকন ব্যবহার করা হয়েছে */}
         <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2.5">
@@ -40,8 +40,6 @@ const DrawAndPrizes = () => {
           </div>
         </div>
 
-        {/* Prize structure Table */}
-        {/* 🏆 ইমোজি সরিয়ে FaTrophy আইকন ব্যবহার করা হয়েছে */}
         <h3 className="text-xs font-bold uppercase text-gray-400 tracking-wider mb-3 flex items-center gap-1.5 pl-1">
           <FaTrophy className="w-3.5 h-3.5 text-slate-400" />
           পুরস্কারের স্তরবিন্যাস (প্রতি সিরিজে)
