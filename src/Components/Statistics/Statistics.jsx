@@ -75,10 +75,10 @@ const Statistics = () => {
                 <h3 className="mt-1 text-3xl font-bold text-gray-800">
                   <CountUp
                     start={0}
-                    end={item.value}
+                    end={Number(item?.value) || 0}
                     duration={2.5}
                     enableScrollSpy
-                    scrollSpyDelay={200}
+                    scrollSpyOnce={true}
                     formattingFn={(val) =>
                       val
                         .toString()
@@ -90,7 +90,9 @@ const Statistics = () => {
                             ],
                         )
                     }
-                  />
+                  >
+                    {({ countUpRef }) => <span ref={countUpRef} />}
+                  </CountUp>
                 </h3>
               </div>
             </div>

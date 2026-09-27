@@ -39,9 +39,8 @@ const Home = () => {
       <div className="w-full transition-all duration-300 mt-10">
         {renderTabContent()}
       </div>
-      <FAQ />
-
       <Statistics />
+      <FAQ />
     </div>
   );
 };

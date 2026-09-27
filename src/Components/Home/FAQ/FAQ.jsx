@@ -44,7 +44,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto py-10 px-4 animate-fadeIn">
+    <div className="w-full max-w-7xl mx-auto py-10 px-4 animate-fadeIn mt-15">
       {/* Section Header */}
       <div className="text-center mb-8">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-800 tracking-tight">
