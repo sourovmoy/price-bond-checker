@@ -27,6 +27,8 @@ import DrawResults from "../Pages/DrawResults";
 import SingleDraw from "../Pages/SingleDraw";
 import Users from "../Pages/Dashboard/Admin/Users";
 import WinningBonds from "../Pages/Dashboard/Admin/WinningBonds";
+import SingleAddBond from "../Components/Addbonds/SingleAddBond";
+import MultipleBonds from "../Components/Addbonds/MultipleBonds";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +48,16 @@ export const router = createBrowserRouter([
             <AddPriceBond />
           </PrivateRoute>
         ),
+        children: [
+          {
+            index: true,
+            element: (
+              <PrivateRoute>
+                <MultipleBonds />
+              </PrivateRoute>
+            ),
+          },
+        ],
       },
       {
         path: "/login",
