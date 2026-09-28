@@ -16,7 +16,6 @@ const WinningBonds = () => {
   });
 
   const bonds = data?.result || [];
-  console.log(bonds);
 
   return (
     <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">

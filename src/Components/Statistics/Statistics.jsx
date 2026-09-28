@@ -24,19 +24,19 @@ const Statistics = () => {
 
   const stats = [
     {
-      label: "মোট ইউজার",
+      label: "ইউজার সংখ্যা",
       value: `${totalUsers}`,
       icon: <FiUsers />,
       text: "text-blue-600",
     },
     {
-      label: "মোট বন্ড",
+      label: "বন্ড সংখ্যা",
       value: `${totalBonds}`,
       icon: <IoTicketOutline style={{ transform: "rotate(45deg)" }} />,
       text: "text-green-600",
     },
     {
-      label: "মোট বিজয়ী",
+      label: "বিজয়ী সংখ্যা",
       value: `${totalWon}`,
       icon: <FaTrophy />,
       text: "text-yellow-600",

@@ -52,7 +52,7 @@ const AdminDashBoard = () => {
       icon: <FiAward />,
       bg: "bg-yellow-50",
       text: "text-yellow-600",
-      route: "#",
+      route: "/dashboard/admin/wins-bonds-collection",
     },
     {
       label: "মোট অপেক্ষমান",
