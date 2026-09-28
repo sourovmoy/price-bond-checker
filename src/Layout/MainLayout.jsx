@@ -23,7 +23,7 @@ const MainLayout = () => {
             rel="noopener noreferrer"
             aria-label="WhatsApp এ মেসেজ করুন"
             title="WhatsApp এ মেসেজ করুন"
-            className="fixed bottom-7 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-3xl text-white shadow-lg transition hover:scale-110 animate-bounce"
+            className="fixed bottom-7 right-3 sm:right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-3xl text-white shadow-lg transition hover:scale-110 animate-bounce"
           >
             <ImWhatsapp />
           </a>

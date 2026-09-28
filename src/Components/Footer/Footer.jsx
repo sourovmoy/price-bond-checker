@@ -3,6 +3,7 @@ import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Logo from "../Shared/Logo/Logo";
 import { Link } from "react-router";
 import { TbWorld } from "react-icons/tb";
+import { ImWhatsapp } from "react-icons/im";
 
 const Footer = () => {
   return (
@@ -72,7 +73,7 @@ const Footer = () => {
           </p>
           <div className="flex gap-4">
             <a
-              href="https://www.facebook.com/sourovmmoysanju"
+              href="https://www.facebook.com/profile.php?id=61594708869375"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
@@ -80,21 +81,23 @@ const Footer = () => {
               <FaFacebook size={18} />
             </a>
             <a
+              href={`https://wa.me/8801302172521`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp এ মেসেজ করুন"
+              title="WhatsApp এ মেসেজ করুন"
+              className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
+            >
+              <ImWhatsapp />
+            </a>
+            {/* <a
               href="https://www.linkedin.com/in/sourov-dash"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
             >
               <FaLinkedin size={18} />
-            </a>
-            <a
-              href="https://dev-sourov-dash.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-neutral-800 hover:bg-emerald-600 hover:text-white rounded-full transition-all duration-300"
-            >
-              <TbWorld size={18} />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
@@ -106,16 +109,11 @@ const Footer = () => {
         <p>
           © {new Date().getFullYear()} PriceBond Checker. All rights reserved.
         </p>
-        <p>
-          Developed by{" "}
-          <a
-            href="https://github.com/sourovmoy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-emerald-500 hover:underline font-medium"
-          >
+        <p className="flex gap-2">
+          Developed by
+          <div className="text-emerald-500 hover:underline font-medium">
             Sourov Dash
-          </a>
+          </div>
         </p>
       </div>
     </footer>
