@@ -9,7 +9,7 @@ const Users = () => {
   const axios = useAxiosSecure();
 
   const {
-    data: users = [],
+    data = [],
     isLoading,
     isError,
     refetch,
@@ -17,9 +17,11 @@ const Users = () => {
     queryKey: ["adminUsers"],
     queryFn: async () => {
       const res = await axios.get("/users-collection");
-      return res.data.user;
+      return res.data;
     },
   });
+
+  const { user: users, addedPrizebondUsers: present } = data;
 
   const handleDelete = async (email) => {
     const result = await Swal.fire({
@@ -86,6 +88,7 @@ const Users = () => {
               <th className="py-2 px-3">Photo</th>
               <th className="py-3 px-4">Name</th>
               <th className="py-3 px-4">Email</th>
+              <th className="py-3 px-2">Status</th>
               <th className="py-3 px-4">Role</th>
               <th className="py-3 px-4">Action</th>
             </tr>
@@ -124,6 +127,17 @@ const Users = () => {
                   {/* Email Column */}
                   <td className="py-1 px-2 text-gray-500">
                     {user.email || "No Email Provided"}
+                  </td>
+                  <td className="text-xs font-bold">
+                    {present.some((e) => e.email === user.email) ? (
+                      <span className="bg-green-500 py-1 px-2 text-white rounded-full">
+                        Added
+                      </span>
+                    ) : (
+                      <span className="bg-yellow-500 py-1 px-2 rounded-full">
+                        Pending
+                      </span>
+                    )}
                   </td>
                   <td className="text-gray-500 text-center text-xs">
                     <span className="rounded-2xl bg-green-200 px-2 py-1">
