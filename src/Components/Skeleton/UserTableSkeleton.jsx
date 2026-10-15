@@ -43,7 +43,7 @@ const UserTableSkeleton = () => {
                 </td>
                 {/* Status Skeleton */}
                 <td className="py-1 px-2">
-                  <div className="h-4 w-50 bg-gray-200 rounded"></div>
+                  <div className="h-4 w-18 bg-gray-200 rounded"></div>
                 </td>
 
                 {/* Role Skeleton */}
