@@ -19,6 +19,7 @@ const UserTableSkeleton = () => {
               <th className="py-2 px-3">Photo</th>
               <th className="py-3 px-4">Name</th>
               <th className="py-3 px-4">Email</th>
+              <th className="py-3 px-4">Status</th>
               <th className="py-3 px-4 text-center">Role</th>
               <th className="py-3 px-4 text-center">Action</th>
             </tr>
@@ -39,6 +40,10 @@ const UserTableSkeleton = () => {
                 {/* Email Skeleton */}
                 <td className="py-1 px-2">
                   <div className="h-4 w-48 bg-gray-200 rounded"></div>
+                </td>
+                {/* Status Skeleton */}
+                <td className="py-1 px-2">
+                  <div className="h-4 w-50 bg-gray-200 rounded"></div>
                 </td>
 
                 {/* Role Skeleton */}
