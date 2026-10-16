@@ -123,7 +123,6 @@ const MultipleBonds = () => {
     setSpinner(true);
     setNotice("");
     try {
-      console.log(result.bonds);
 
       const res = await axios.post("add-multiple-price-bonds", {
         bonds: result.bonds,
